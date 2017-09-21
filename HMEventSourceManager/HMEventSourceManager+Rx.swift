@@ -10,30 +10,67 @@ import RxSwift
 import RxReachability
 import SwiftUtilities
 
-extension HMEventSourceManager: ReactiveCompatible {}
-
-public extension HMEventSourceManager {
-    func openSSEConnection<O>(_ request: Request,
-                              _ configuration: URLSessionConfiguration,
-                              _ queue: OperationQueue,
-                              _ obs: O) -> Disposable where
-        O: ObserverType, O.E == Data
+extension HMEventSourceManager: HMEventSourceManagerType {
+    public func isReachableStream() -> Observable<Bool> {
+        return self.isReachable.distinctUntilChanged()
+    }
+    
+    public func triggerReachable() -> AnyObserver<Bool> {
+        return self.isReachable.asObserver()
+    }
+    
+    /// DidReceiveData callback.
+    public func didReceiveData<O>(_ task: URLSessionDataTask,
+                                  _ data: Data,
+                                  _ obs: O) where
+        O: ObserverType, O.E == HMSSEvent<Data>
     {
+        obs.onNext(HMSSEvent.dataReceived(data))
+    }
+    
+    /// DidReceiveResponse callback.
+    public func didReceiveResponse<E,O>(_ task: URLSessionDataTask,
+                                        _ response: URLResponse,
+                                        _ obs: O) where
+        O: ObserverType, O.E == HMSSEvent<E>
+    {
+        obs.onNext(HMSSEvent<E>.connectionOpened)
+    }
+    
+    /// DidCompleteWithError callback.
+    public func didCompleteWithError<O>(_ task: URLSessionTask,
+                                        _ error: Error?,
+                                        _ obs: O) where
+        O: ObserverType, O.E == HMSSEvent<Data>
+    {
+        if let error = error as NSError?, error.code != 999 {
+            obs.onError(error)
+        } else if error == nil {
+            // We throw error here as well to access retryWhen.
+            obs.onError(Exception("Data transfer completed - resubscribing."))
+        } else {
+            obs.onCompleted()
+        }
+    }
+    
+    /// Open a SSE connection.
+    public func openConnection<O>(_ request: Request, _ obs: O) -> Disposable where
+        O: ObserverType, O.E == HMSSEvent<Data>
+    {
+        let newRequest = requestWithDefaultParams(request)
+        let config = urlSessionConfig(newRequest)
+        let queue = OperationQueue()
+        
         do {
-            print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>> CREATING NEW SESSION!!!!")
-            let urlRequest = try request.urlRequest()
+            let urlRequest = try newRequest.urlRequest()
             
             let delegate = HMURLSessionSSEDelegate.builder()
-                .with(didReceiveResponse: { debugPrint($0) })
-                .with(didReceiveData: { obs.onNext($0) })
-                .with(didCompleteWithError: {
-                    if let error = $0 {
-                        obs.onError(error)
-                    }
-                })
+                .with(didReceiveResponse: {self.didReceiveResponse($0.0, $0.1, obs)})
+                .with(didReceiveData: {self.didReceiveData($0.0, $0.1, obs)})
+                .with(didCompleteWithError: {self.didCompleteWithError($0.0, $0.1, obs)})
                 .build()
             
-            let urlSession = URLSession(configuration: configuration,
+            let urlSession = URLSession(configuration: config,
                                         delegate: delegate,
                                         delegateQueue: queue)
             
@@ -42,111 +79,12 @@ public extension HMEventSourceManager {
             task.resume()
             
             return Disposables.create(with: {
+                delegate.removeCallbacks()
                 urlSession.invalidateAndCancel()
             })
         } catch let error {
             obs.onError(error)
             return Disposables.create()
         }
-    }
-}
-
-public extension Reactive where Base == HMEventSourceManager {
-    public typealias Request = HMEventSourceManager.Request
-    
-    /// We need a separate isReachable Observable because reachability.rx
-    /// does not relay that last event.
-    public var isReachable: Observable<Bool> {
-        return base.isReachable.asObservable().distinctUntilChanged()
-    }
-    
-    public var isConnected: Observable<Void> {
-        return isReachable.filter({$0}).map(toVoid)
-    }
-    
-    public var isDisconnected: Observable<Void> {
-        return isReachable.filter({!$0}).map(toVoid)
-    }
-    
-    /// Open a new SSE connection that listens to connectivity changes and
-    /// terminates when connectivity is not available.
-    ///
-    /// - Parameters:
-    ///   - request: A Request instance.
-    ///   - sseObs: A SSE connection creator Observable.
-    ///   - disconnectedObs: A disconnected notifier.
-    ///   - terminateObs: A terminate notifier.
-    /// - Returns: An Observable instance.
-    func reachabilityAwareSSE<SO,TO>(_ request: Request,
-                                     _ sseObs: SO,
-                                     _ terminateObs: TO)
-        -> Observable<Data> where
-        SO: ObservableConvertibleType, SO.E == Data,
-        TO: ObservableConvertibleType, TO.E == Void
-    {
-        let newRequest = base.requestWithDefaultParams(request)
-        
-        let terminateNotifier = Observable.amb([
-            self.isDisconnected,
-            terminateObs.asObservable()
-        ])
-        
-        let retries = newRequest.retries()
-        let delay = newRequest.retryDelay()
-        let retryScheduler = ConcurrentDispatchQueueScheduler(qos: .background)
-        
-        return sseObs.asObservable()
-            .subscribeOn(qos: .background)
-            .delayRetry(retries: retries,
-                        delay: delay,
-                        scheduler: retryScheduler,
-                        terminateObs: terminateNotifier)
-            .takeUntil(terminateNotifier)
-            .observeOn(qos: .background)
-    }
-    
-    /// Open a new SSE connection only when there is internet connectivity.
-    ///
-    /// - Parameters:
-    ///   - request: A Request instance.
-    ///   - sseObs: A SSE connection creator Observable.
-    ///   - connectedObs: A connected notifier.
-    ///   - disconnectedObs: A disconnected notifier.
-    ///   - terminateObs: An Observable instance that notifies when to stop retrying.
-    /// - Returns: An Observable instance.
-    public func retryOnConnectivitySSE<SO,TO>(_ request: Request,
-                                              _ sseObs: SO,
-                                              _ terminateObs: TO)
-        -> Observable<Data> where
-        SO: ObservableConvertibleType, SO.E == Data,
-        TO: ObservableConvertibleType, TO.E == Void
-    {
-        return self.isConnected
-            .flatMapLatest({self.reachabilityAwareSSE(request,
-                                                      sseObs,
-                                                      terminateObs)})
-            .takeUntil(terminateObs.asObservable())
-    }
-    
-    /// Open a new SSE connection only when there is internet connectivity.
-    ///
-    /// - Parameters:
-    ///   - request: A Request instance.
-    ///   - terminateObs: An Observable instance that notifies when to stop retrying.
-    /// - Returns: An Observable instance.
-    public func retryOnConnectivitySSE<TO>(_ request: Request,
-                                           _ terminateObs: TO)
-        -> Observable<Data> where
-        TO: ObservableConvertibleType, TO.E == Void
-    {
-        let newRequest = base.requestWithDefaultParams(request)
-        let config = base.urlSessionConfig(newRequest)
-        let queue = OperationQueue()
-        
-        let sseObs = Observable<Data>.create({
-            self.base.openSSEConnection(newRequest, config, queue, $0)
-        })
-        
-        return retryOnConnectivitySSE(request, sseObs, terminateObs)
     }
 }

@@ -20,11 +20,14 @@ public struct HMEventSourceManager {
     
     // Since reachability.rx does not relay that last event, we need to store
     // it somewhere for easy access when opening a new SSE connection.
-    let isReachable: Variable<Bool>
+    let isReachable: BehaviorSubject<Bool>
+    
+    public let newlineCharacters: [String]
     
     fileprivate init() {
         disposeBag = DisposeBag()
-        isReachable = Variable<Bool>(true)
+        isReachable = BehaviorSubject<Bool>(value: true)
+        newlineCharacters = ["\r\n", "\n", "\r"]
     }
     
     public func networkChecker() -> Reachability {
@@ -50,7 +53,7 @@ public struct HMEventSourceManager {
         
         // Get the current reachability status, then subscribe to notifications
         // later.
-        isReachable.value = networkChecker.isReachable
+        isReachable.onNext(networkChecker.isReachable)
         
         try? networkChecker.startNotifier()
         

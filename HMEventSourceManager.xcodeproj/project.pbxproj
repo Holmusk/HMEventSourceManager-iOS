@@ -10,21 +10,27 @@
 		24D9AF6614483AD4CCA84189 /* Pods_HMEventSourceManagerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3274A7EBC269B79257597859 /* Pods_HMEventSourceManagerTests.framework */; };
 		759F60C4B08CED81870DFD7F /* Pods_HMEventSourceManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BE841FFFCBE313EA8862059 /* Pods_HMEventSourceManager.framework */; };
 		A9ED25AE06EB8AFE3F6EECE9 /* Pods_HMEventSourceManager_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F0F7AFC1B01A2CD6F12990B /* Pods_HMEventSourceManager_Demo.framework */; };
-		D30222011F7357FF00DF36D7 /* HMEventSourceManager+URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30222001F7357FF00DF36D7 /* HMEventSourceManager+URLSession.swift */; };
 		D30222031F73616100DF36D7 /* HMURLSessionSSEDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30222021F73616100DF36D7 /* HMURLSessionSSEDelegate.swift */; };
 		D36897551F7365E800321CBA /* SSEViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36897541F7365E800321CBA /* SSEViewController.swift */; };
+		D384B9A41F7408D900999116 /* HMSSEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D384B9A31F7408D900999116 /* HMSSEvent.swift */; };
+		D384B9A61F741DC400999116 /* HMSSEData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D384B9A51F741DC400999116 /* HMSSEData.swift */; };
 		D39454B91F736E59000A3C1A /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D39454B81F736E59000A3C1A /* README.md */; };
 		D3BC983D1F73834D0038A988 /* HMEventSourceManager+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3BC983C1F73834D0038A988 /* HMEventSourceManager+Rx.swift */; };
 		D3E35FBA1F724C74004C4124 /* HMEventSourceManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3E35FB01F724C74004C4124 /* HMEventSourceManager.framework */; };
 		D3E35FC11F724C74004C4124 /* HMEventSourceManager.h in Headers */ = {isa = PBXBuildFile; fileRef = D3E35FB31F724C74004C4124 /* HMEventSourceManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3E35FCB1F724E4C004C4124 /* HMEventSourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E35FCA1F724E4C004C4124 /* HMEventSourceManager.swift */; };
-		D3E35FCE1F7250DC004C4124 /* HMEventSourceManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E35FCD1F7250DC004C4124 /* HMEventSourceManagerTest.swift */; };
+		D3E35FCE1F7250DC004C4124 /* ReachabilityAwareTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E35FCD1F7250DC004C4124 /* ReachabilityAwareTest.swift */; };
 		D3E35FDB1F7267D9004C4124 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E35FDA1F7267D9004C4124 /* AppDelegate.swift */; };
 		D3E35FDD1F7267D9004C4124 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E35FDC1F7267D9004C4124 /* ViewController.swift */; };
 		D3E35FE01F7267D9004C4124 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3E35FDE1F7267D9004C4124 /* Main.storyboard */; };
 		D3E35FE21F7267D9004C4124 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3E35FE11F7267D9004C4124 /* Assets.xcassets */; };
 		D3E35FE51F7267D9004C4124 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3E35FE31F7267D9004C4124 /* LaunchScreen.storyboard */; };
 		D3E35FED1F726B88004C4124 /* Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E35FEC1F726B88004C4124 /* Singleton.swift */; };
+		D3E9DB611F73C3020026F4FC /* HMEventSourceManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3E35FB01F724C74004C4124 /* HMEventSourceManager.framework */; };
+		D3FD13A81F73FDD1006AAD54 /* HMEventSourceManagerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FD13A71F73FDD1006AAD54 /* HMEventSourceManagerType.swift */; };
+		D3FD13AA1F73FF4E006AAD54 /* MockEventStreamManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FD13A91F73FF4E006AAD54 /* MockEventStreamManager.swift */; };
+		D3FD13AC1F74053D006AAD54 /* RootSSETest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FD13AB1F74053D006AAD54 /* RootSSETest.swift */; };
+		D3FD13AE1F7405AD006AAD54 /* RetryOnConnectivityTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FD13AD1F7405AD006AAD54 /* RetryOnConnectivityTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,9 +51,10 @@
 		8172F16C8471BB99FDB90E15 /* Pods-HMEventSourceManager-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HMEventSourceManager-Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HMEventSourceManager-Demo/Pods-HMEventSourceManager-Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		9F0F7AFC1B01A2CD6F12990B /* Pods_HMEventSourceManager_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HMEventSourceManager_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2EF6CE34EDF0AF0E66DC98F /* Pods-HMEventSourceManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HMEventSourceManager.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HMEventSourceManager/Pods-HMEventSourceManager.debug.xcconfig"; sourceTree = "<group>"; };
-		D30222001F7357FF00DF36D7 /* HMEventSourceManager+URLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HMEventSourceManager+URLSession.swift"; sourceTree = "<group>"; };
 		D30222021F73616100DF36D7 /* HMURLSessionSSEDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMURLSessionSSEDelegate.swift; sourceTree = "<group>"; };
 		D36897541F7365E800321CBA /* SSEViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSEViewController.swift; sourceTree = "<group>"; };
+		D384B9A31F7408D900999116 /* HMSSEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMSSEvent.swift; sourceTree = "<group>"; };
+		D384B9A51F741DC400999116 /* HMSSEData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMSSEData.swift; sourceTree = "<group>"; };
 		D39454B81F736E59000A3C1A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D3BC983C1F73834D0038A988 /* HMEventSourceManager+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HMEventSourceManager+Rx.swift"; sourceTree = "<group>"; };
 		D3E35FB01F724C74004C4124 /* HMEventSourceManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HMEventSourceManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -56,8 +63,7 @@
 		D3E35FB91F724C74004C4124 /* HMEventSourceManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HMEventSourceManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3E35FC01F724C74004C4124 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D3E35FCA1F724E4C004C4124 /* HMEventSourceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMEventSourceManager.swift; sourceTree = "<group>"; };
-		D3E35FCC1F7250DC004C4124 /* HMEventSourceManagerTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HMEventSourceManagerTests-Bridging-Header.h"; sourceTree = "<group>"; };
-		D3E35FCD1F7250DC004C4124 /* HMEventSourceManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMEventSourceManagerTest.swift; sourceTree = "<group>"; };
+		D3E35FCD1F7250DC004C4124 /* ReachabilityAwareTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityAwareTest.swift; sourceTree = "<group>"; };
 		D3E35FD81F7267D9004C4124 /* HMEventSourceManager-Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HMEventSourceManager-Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3E35FDA1F7267D9004C4124 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D3E35FDC1F7267D9004C4124 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -66,6 +72,10 @@
 		D3E35FE41F7267D9004C4124 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D3E35FE61F7267D9004C4124 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D3E35FEC1F726B88004C4124 /* Singleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Singleton.swift; sourceTree = "<group>"; };
+		D3FD13A71F73FDD1006AAD54 /* HMEventSourceManagerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMEventSourceManagerType.swift; sourceTree = "<group>"; };
+		D3FD13A91F73FF4E006AAD54 /* MockEventStreamManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockEventStreamManager.swift; sourceTree = "<group>"; };
+		D3FD13AB1F74053D006AAD54 /* RootSSETest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootSSETest.swift; sourceTree = "<group>"; };
+		D3FD13AD1F7405AD006AAD54 /* RetryOnConnectivityTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryOnConnectivityTest.swift; sourceTree = "<group>"; };
 		EDC51187B74693644E890983 /* Pods-HMEventSourceManagerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HMEventSourceManagerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HMEventSourceManagerTests/Pods-HMEventSourceManagerTests.debug.xcconfig"; sourceTree = "<group>"; };
 		FD4F54EC3133616BDC11BC2D /* Pods-HMEventSourceManagerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HMEventSourceManagerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HMEventSourceManagerTests/Pods-HMEventSourceManagerTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -92,6 +102,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3E9DB611F73C3020026F4FC /* HMEventSourceManager.framework in Frameworks */,
 				A9ED25AE06EB8AFE3F6EECE9 /* Pods_HMEventSourceManager_Demo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -141,7 +152,9 @@
 				D3E35FB31F724C74004C4124 /* HMEventSourceManager.h */,
 				D3E35FCA1F724E4C004C4124 /* HMEventSourceManager.swift */,
 				D3BC983C1F73834D0038A988 /* HMEventSourceManager+Rx.swift */,
-				D30222001F7357FF00DF36D7 /* HMEventSourceManager+URLSession.swift */,
+				D3FD13A71F73FDD1006AAD54 /* HMEventSourceManagerType.swift */,
+				D384B9A51F741DC400999116 /* HMSSEData.swift */,
+				D384B9A31F7408D900999116 /* HMSSEvent.swift */,
 				D30222021F73616100DF36D7 /* HMURLSessionSSEDelegate.swift */,
 				D3E35FB41F724C74004C4124 /* Info.plist */,
 			);
@@ -152,8 +165,10 @@
 			isa = PBXGroup;
 			children = (
 				D3E35FC01F724C74004C4124 /* Info.plist */,
-				D3E35FCD1F7250DC004C4124 /* HMEventSourceManagerTest.swift */,
-				D3E35FCC1F7250DC004C4124 /* HMEventSourceManagerTests-Bridging-Header.h */,
+				D3E35FCD1F7250DC004C4124 /* ReachabilityAwareTest.swift */,
+				D3FD13A91F73FF4E006AAD54 /* MockEventStreamManager.swift */,
+				D3FD13AB1F74053D006AAD54 /* RootSSETest.swift */,
+				D3FD13AD1F7405AD006AAD54 /* RetryOnConnectivityTest.swift */,
 			);
 			path = HMEventSourceManagerTests;
 			sourceTree = "<group>";
@@ -512,8 +527,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3BC983D1F73834D0038A988 /* HMEventSourceManager+Rx.swift in Sources */,
+				D384B9A41F7408D900999116 /* HMSSEvent.swift in Sources */,
+				D3FD13A81F73FDD1006AAD54 /* HMEventSourceManagerType.swift in Sources */,
 				D3E35FCB1F724E4C004C4124 /* HMEventSourceManager.swift in Sources */,
-				D30222011F7357FF00DF36D7 /* HMEventSourceManager+URLSession.swift in Sources */,
+				D384B9A61F741DC400999116 /* HMSSEData.swift in Sources */,
 				D30222031F73616100DF36D7 /* HMURLSessionSSEDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -522,7 +539,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3E35FCE1F7250DC004C4124 /* HMEventSourceManagerTest.swift in Sources */,
+				D3FD13AE1F7405AD006AAD54 /* RetryOnConnectivityTest.swift in Sources */,
+				D3E35FCE1F7250DC004C4124 /* ReachabilityAwareTest.swift in Sources */,
+				D3FD13AC1F74053D006AAD54 /* RootSSETest.swift in Sources */,
+				D3FD13AA1F73FF4E006AAD54 /* MockEventStreamManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -743,7 +763,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.holmusk.HMEventSourceManagerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "HMEventSourceManagerTests/HMEventSourceManagerTests-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -762,7 +782,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.holmusk.HMEventSourceManagerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "HMEventSourceManagerTests/HMEventSourceManagerTests-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

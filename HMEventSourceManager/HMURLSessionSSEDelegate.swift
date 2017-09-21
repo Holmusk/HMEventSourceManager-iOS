@@ -11,15 +11,21 @@ import SwiftUtilities
 
 public final class HMURLSessionSSEDelegate: NSObject {
     public typealias ResponseDisposition = URLSession.ResponseDisposition
-    public typealias DidReceiveData = (Data) -> Void
-    public typealias DidReceiveResponse = (URLResponse) -> Void
-    public typealias DidCompleteWithError = (Error?) -> Void
+    public typealias DidReceiveData = (URLSessionDataTask, Data) -> Void
+    public typealias DidReceiveResponse = (URLSessionDataTask, URLResponse) -> Void
+    public typealias DidCompleteWithError = (URLSessionTask, Error?) -> Void
     fileprivate var didReceiveData: DidReceiveData?
     fileprivate var didReceiveResponse: DidReceiveResponse?
     fileprivate var didCompleteWithError: DidCompleteWithError?
     
     deinit {
         debugPrint("Deinit \(self)")
+    }
+    
+    public func removeCallbacks() {
+        didReceiveData = nil
+        didReceiveResponse = nil
+        didCompleteWithError = nil
     }
 }
 
@@ -91,20 +97,22 @@ extension HMURLSessionSSEDelegate: URLSessionDataDelegate {
     public func urlSession(_ session: URLSession,
                            dataTask: URLSessionDataTask,
                            didReceive data: Data) {
-        didReceiveData?(data)
+        mainThread({self.didReceiveData?(dataTask, data)})
     }
     
     public func urlSession(_ session: URLSession,
                            dataTask: URLSessionDataTask,
                            didReceive response: URLResponse,
                            completionHandler: @escaping (ResponseDisposition) -> Void) {
-        completionHandler(.allow)
-        didReceiveResponse?(response)
+        mainThread({
+            completionHandler(.allow)
+            self.didReceiveResponse?(dataTask, response)
+        })
     }
     
     public func urlSession(_ session: URLSession,
                            task: URLSessionTask,
                            didCompleteWithError error: Error?) {
-        didCompleteWithError?(error)
+        mainThread({self.didCompleteWithError?(task, error)})
     }
 }

@@ -39,7 +39,6 @@ public final class SSEViewController: UIViewController {
         
         sseManager.rx.retryOnConnectivitySSE(request, self.rx.deallocated)
             .logNext()
-            .takeUntil(self.rx.deallocated)
             .subscribe()
             .disposed(by: disposeBag)
     }
