@@ -1,0 +1,839 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		24D9AF6614483AD4CCA84189 /* Pods_HMEventSourceManagerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3274A7EBC269B79257597859 /* Pods_HMEventSourceManagerTests.framework */; };
+		759F60C4B08CED81870DFD7F /* Pods_HMEventSourceManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BE841FFFCBE313EA8862059 /* Pods_HMEventSourceManager.framework */; };
+		A9ED25AE06EB8AFE3F6EECE9 /* Pods_HMEventSourceManager_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F0F7AFC1B01A2CD6F12990B /* Pods_HMEventSourceManager_Demo.framework */; };
+		D30222011F7357FF00DF36D7 /* HMEventSourceManager+URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30222001F7357FF00DF36D7 /* HMEventSourceManager+URLSession.swift */; };
+		D30222031F73616100DF36D7 /* HMURLSessionSSEDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30222021F73616100DF36D7 /* HMURLSessionSSEDelegate.swift */; };
+		D36897551F7365E800321CBA /* SSEViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36897541F7365E800321CBA /* SSEViewController.swift */; };
+		D3E35FBA1F724C74004C4124 /* HMEventSourceManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3E35FB01F724C74004C4124 /* HMEventSourceManager.framework */; };
+		D3E35FC11F724C74004C4124 /* HMEventSourceManager.h in Headers */ = {isa = PBXBuildFile; fileRef = D3E35FB31F724C74004C4124 /* HMEventSourceManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3E35FCB1F724E4C004C4124 /* HMEventSourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E35FCA1F724E4C004C4124 /* HMEventSourceManager.swift */; };
+		D3E35FCE1F7250DC004C4124 /* HMEventSourceManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E35FCD1F7250DC004C4124 /* HMEventSourceManagerTest.swift */; };
+		D3E35FDB1F7267D9004C4124 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E35FDA1F7267D9004C4124 /* AppDelegate.swift */; };
+		D3E35FDD1F7267D9004C4124 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E35FDC1F7267D9004C4124 /* ViewController.swift */; };
+		D3E35FE01F7267D9004C4124 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3E35FDE1F7267D9004C4124 /* Main.storyboard */; };
+		D3E35FE21F7267D9004C4124 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3E35FE11F7267D9004C4124 /* Assets.xcassets */; };
+		D3E35FE51F7267D9004C4124 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3E35FE31F7267D9004C4124 /* LaunchScreen.storyboard */; };
+		D3E35FED1F726B88004C4124 /* Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E35FEC1F726B88004C4124 /* Singleton.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D3E35FBB1F724C74004C4124 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D3E35FA71F724C74004C4124 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D3E35FAF1F724C74004C4124;
+			remoteInfo = HMEventSourceManager;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		3274A7EBC269B79257597859 /* Pods_HMEventSourceManagerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HMEventSourceManagerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5FA9420C8D7D088D8B0E2B06 /* Pods-HMEventSourceManager-Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HMEventSourceManager-Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-HMEventSourceManager-Demo/Pods-HMEventSourceManager-Demo.release.xcconfig"; sourceTree = "<group>"; };
+		616C4F8A2CB9E71BFAFD2F15 /* Pods-HMEventSourceManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HMEventSourceManager.release.xcconfig"; path = "Pods/Target Support Files/Pods-HMEventSourceManager/Pods-HMEventSourceManager.release.xcconfig"; sourceTree = "<group>"; };
+		7BE841FFFCBE313EA8862059 /* Pods_HMEventSourceManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HMEventSourceManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8172F16C8471BB99FDB90E15 /* Pods-HMEventSourceManager-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HMEventSourceManager-Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HMEventSourceManager-Demo/Pods-HMEventSourceManager-Demo.debug.xcconfig"; sourceTree = "<group>"; };
+		9F0F7AFC1B01A2CD6F12990B /* Pods_HMEventSourceManager_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HMEventSourceManager_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A2EF6CE34EDF0AF0E66DC98F /* Pods-HMEventSourceManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HMEventSourceManager.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HMEventSourceManager/Pods-HMEventSourceManager.debug.xcconfig"; sourceTree = "<group>"; };
+		D30222001F7357FF00DF36D7 /* HMEventSourceManager+URLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HMEventSourceManager+URLSession.swift"; sourceTree = "<group>"; };
+		D30222021F73616100DF36D7 /* HMURLSessionSSEDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMURLSessionSSEDelegate.swift; sourceTree = "<group>"; };
+		D36897541F7365E800321CBA /* SSEViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSEViewController.swift; sourceTree = "<group>"; };
+		D3E35FB01F724C74004C4124 /* HMEventSourceManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HMEventSourceManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3E35FB31F724C74004C4124 /* HMEventSourceManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HMEventSourceManager.h; sourceTree = "<group>"; };
+		D3E35FB41F724C74004C4124 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D3E35FB91F724C74004C4124 /* HMEventSourceManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HMEventSourceManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3E35FC01F724C74004C4124 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D3E35FCA1F724E4C004C4124 /* HMEventSourceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMEventSourceManager.swift; sourceTree = "<group>"; };
+		D3E35FCC1F7250DC004C4124 /* HMEventSourceManagerTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HMEventSourceManagerTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		D3E35FCD1F7250DC004C4124 /* HMEventSourceManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMEventSourceManagerTest.swift; sourceTree = "<group>"; };
+		D3E35FD81F7267D9004C4124 /* HMEventSourceManager-Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HMEventSourceManager-Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3E35FDA1F7267D9004C4124 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D3E35FDC1F7267D9004C4124 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D3E35FDF1F7267D9004C4124 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D3E35FE11F7267D9004C4124 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D3E35FE41F7267D9004C4124 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D3E35FE61F7267D9004C4124 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D3E35FEC1F726B88004C4124 /* Singleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Singleton.swift; sourceTree = "<group>"; };
+		EDC51187B74693644E890983 /* Pods-HMEventSourceManagerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HMEventSourceManagerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HMEventSourceManagerTests/Pods-HMEventSourceManagerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		FD4F54EC3133616BDC11BC2D /* Pods-HMEventSourceManagerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HMEventSourceManagerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HMEventSourceManagerTests/Pods-HMEventSourceManagerTests.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D3E35FAC1F724C74004C4124 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				759F60C4B08CED81870DFD7F /* Pods_HMEventSourceManager.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D3E35FB61F724C74004C4124 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3E35FBA1F724C74004C4124 /* HMEventSourceManager.framework in Frameworks */,
+				24D9AF6614483AD4CCA84189 /* Pods_HMEventSourceManagerTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D3E35FD51F7267D9004C4124 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A9ED25AE06EB8AFE3F6EECE9 /* Pods_HMEventSourceManager_Demo.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		18CBBD49DB84D9CD1670A886 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A2EF6CE34EDF0AF0E66DC98F /* Pods-HMEventSourceManager.debug.xcconfig */,
+				616C4F8A2CB9E71BFAFD2F15 /* Pods-HMEventSourceManager.release.xcconfig */,
+				EDC51187B74693644E890983 /* Pods-HMEventSourceManagerTests.debug.xcconfig */,
+				FD4F54EC3133616BDC11BC2D /* Pods-HMEventSourceManagerTests.release.xcconfig */,
+				8172F16C8471BB99FDB90E15 /* Pods-HMEventSourceManager-Demo.debug.xcconfig */,
+				5FA9420C8D7D088D8B0E2B06 /* Pods-HMEventSourceManager-Demo.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		D3E35FA61F724C74004C4124 = {
+			isa = PBXGroup;
+			children = (
+				D3E35FB21F724C74004C4124 /* HMEventSourceManager */,
+				D3E35FBD1F724C74004C4124 /* HMEventSourceManagerTests */,
+				D3E35FD91F7267D9004C4124 /* HMEventSourceManager-Demo */,
+				D3E35FB11F724C74004C4124 /* Products */,
+				18CBBD49DB84D9CD1670A886 /* Pods */,
+				FE7B302C83285833BB7F84D3 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		D3E35FB11F724C74004C4124 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D3E35FB01F724C74004C4124 /* HMEventSourceManager.framework */,
+				D3E35FB91F724C74004C4124 /* HMEventSourceManagerTests.xctest */,
+				D3E35FD81F7267D9004C4124 /* HMEventSourceManager-Demo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D3E35FB21F724C74004C4124 /* HMEventSourceManager */ = {
+			isa = PBXGroup;
+			children = (
+				D3E35FB31F724C74004C4124 /* HMEventSourceManager.h */,
+				D3E35FB41F724C74004C4124 /* Info.plist */,
+				D3E35FCA1F724E4C004C4124 /* HMEventSourceManager.swift */,
+				D30222001F7357FF00DF36D7 /* HMEventSourceManager+URLSession.swift */,
+				D30222021F73616100DF36D7 /* HMURLSessionSSEDelegate.swift */,
+			);
+			path = HMEventSourceManager;
+			sourceTree = "<group>";
+		};
+		D3E35FBD1F724C74004C4124 /* HMEventSourceManagerTests */ = {
+			isa = PBXGroup;
+			children = (
+				D3E35FC01F724C74004C4124 /* Info.plist */,
+				D3E35FCD1F7250DC004C4124 /* HMEventSourceManagerTest.swift */,
+				D3E35FCC1F7250DC004C4124 /* HMEventSourceManagerTests-Bridging-Header.h */,
+			);
+			path = HMEventSourceManagerTests;
+			sourceTree = "<group>";
+		};
+		D3E35FD91F7267D9004C4124 /* HMEventSourceManager-Demo */ = {
+			isa = PBXGroup;
+			children = (
+				D3E35FDA1F7267D9004C4124 /* AppDelegate.swift */,
+				D3E35FDC1F7267D9004C4124 /* ViewController.swift */,
+				D3E35FDE1F7267D9004C4124 /* Main.storyboard */,
+				D3E35FE11F7267D9004C4124 /* Assets.xcassets */,
+				D3E35FE31F7267D9004C4124 /* LaunchScreen.storyboard */,
+				D3E35FE61F7267D9004C4124 /* Info.plist */,
+				D3E35FEC1F726B88004C4124 /* Singleton.swift */,
+				D36897541F7365E800321CBA /* SSEViewController.swift */,
+			);
+			path = "HMEventSourceManager-Demo";
+			sourceTree = "<group>";
+		};
+		FE7B302C83285833BB7F84D3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7BE841FFFCBE313EA8862059 /* Pods_HMEventSourceManager.framework */,
+				3274A7EBC269B79257597859 /* Pods_HMEventSourceManagerTests.framework */,
+				9F0F7AFC1B01A2CD6F12990B /* Pods_HMEventSourceManager_Demo.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		D3E35FAD1F724C74004C4124 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3E35FC11F724C74004C4124 /* HMEventSourceManager.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		D3E35FAF1F724C74004C4124 /* HMEventSourceManager */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D3E35FC41F724C74004C4124 /* Build configuration list for PBXNativeTarget "HMEventSourceManager" */;
+			buildPhases = (
+				6BDBA771C5E553B344D19C32 /* [CP] Check Pods Manifest.lock */,
+				D3E35FAB1F724C74004C4124 /* Sources */,
+				D3E35FAC1F724C74004C4124 /* Frameworks */,
+				D3E35FAD1F724C74004C4124 /* Headers */,
+				D3E35FAE1F724C74004C4124 /* Resources */,
+				DC1B5CC7BE4E1D484D9F62F7 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HMEventSourceManager;
+			productName = HMEventSourceManager;
+			productReference = D3E35FB01F724C74004C4124 /* HMEventSourceManager.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		D3E35FB81F724C74004C4124 /* HMEventSourceManagerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D3E35FC71F724C74004C4124 /* Build configuration list for PBXNativeTarget "HMEventSourceManagerTests" */;
+			buildPhases = (
+				9CE3EB0C66EED316658DFD88 /* [CP] Check Pods Manifest.lock */,
+				D3E35FB51F724C74004C4124 /* Sources */,
+				D3E35FB61F724C74004C4124 /* Frameworks */,
+				D3E35FB71F724C74004C4124 /* Resources */,
+				400190A47954F18ED59DD5EA /* [CP] Embed Pods Frameworks */,
+				2192DBC40C6526A9235C43F5 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D3E35FBC1F724C74004C4124 /* PBXTargetDependency */,
+			);
+			name = HMEventSourceManagerTests;
+			productName = HMEventSourceManagerTests;
+			productReference = D3E35FB91F724C74004C4124 /* HMEventSourceManagerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		D3E35FD71F7267D9004C4124 /* HMEventSourceManager-Demo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D3E35FE91F7267D9004C4124 /* Build configuration list for PBXNativeTarget "HMEventSourceManager-Demo" */;
+			buildPhases = (
+				B33C35F06D6E425504A3F91E /* [CP] Check Pods Manifest.lock */,
+				D3E35FD41F7267D9004C4124 /* Sources */,
+				D3E35FD51F7267D9004C4124 /* Frameworks */,
+				D3E35FD61F7267D9004C4124 /* Resources */,
+				8B77374647F4E72FE3E8DFFC /* [CP] Embed Pods Frameworks */,
+				69DA5154DC630D71FFD97CF5 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "HMEventSourceManager-Demo";
+			productName = "HMEventSourceManager-Demo";
+			productReference = D3E35FD81F7267D9004C4124 /* HMEventSourceManager-Demo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D3E35FA71F724C74004C4124 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0900;
+				LastUpgradeCheck = 0900;
+				ORGANIZATIONNAME = Holmusk;
+				TargetAttributes = {
+					D3E35FAF1F724C74004C4124 = {
+						CreatedOnToolsVersion = 9.0;
+						LastSwiftMigration = 0900;
+						ProvisioningStyle = Automatic;
+					};
+					D3E35FB81F724C74004C4124 = {
+						CreatedOnToolsVersion = 9.0;
+						LastSwiftMigration = 0900;
+						ProvisioningStyle = Automatic;
+					};
+					D3E35FD71F7267D9004C4124 = {
+						CreatedOnToolsVersion = 9.0;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = D3E35FAA1F724C74004C4124 /* Build configuration list for PBXProject "HMEventSourceManager" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D3E35FA61F724C74004C4124;
+			productRefGroup = D3E35FB11F724C74004C4124 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D3E35FAF1F724C74004C4124 /* HMEventSourceManager */,
+				D3E35FB81F724C74004C4124 /* HMEventSourceManagerTests */,
+				D3E35FD71F7267D9004C4124 /* HMEventSourceManager-Demo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D3E35FAE1F724C74004C4124 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D3E35FB71F724C74004C4124 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D3E35FD61F7267D9004C4124 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3E35FE51F7267D9004C4124 /* LaunchScreen.storyboard in Resources */,
+				D3E35FE21F7267D9004C4124 /* Assets.xcassets in Resources */,
+				D3E35FE01F7267D9004C4124 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2192DBC40C6526A9235C43F5 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HMEventSourceManagerTests/Pods-HMEventSourceManagerTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		400190A47954F18ED59DD5EA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-HMEventSourceManagerTests/Pods-HMEventSourceManagerTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
+				"${BUILT_PRODUCTS_DIR}/HMRequestFramework/HMRequestFramework.framework",
+				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/ReachabilitySwift.framework",
+				"${BUILT_PRODUCTS_DIR}/RxBlocking/RxBlocking.framework",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxDataSources/RxDataSources.framework",
+				"${BUILT_PRODUCTS_DIR}/RxReachability/RxReachability.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftUtilities/SwiftUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/RxTest/RxTest.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftUtilitiesTests/SwiftUtilitiesTests.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HMRequestFramework.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReachabilitySwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxBlocking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxDataSources.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxReachability.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxTest.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftUtilitiesTests.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HMEventSourceManagerTests/Pods-HMEventSourceManagerTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		69DA5154DC630D71FFD97CF5 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HMEventSourceManager-Demo/Pods-HMEventSourceManager-Demo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6BDBA771C5E553B344D19C32 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-HMEventSourceManager-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8B77374647F4E72FE3E8DFFC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-HMEventSourceManager-Demo/Pods-HMEventSourceManager-Demo-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
+				"${BUILT_PRODUCTS_DIR}/HMRequestFramework/HMRequestFramework.framework",
+				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/ReachabilitySwift.framework",
+				"${BUILT_PRODUCTS_DIR}/RxBlocking/RxBlocking.framework",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxDataSources/RxDataSources.framework",
+				"${BUILT_PRODUCTS_DIR}/RxReachability/RxReachability.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftUtilities/SwiftUtilities.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HMRequestFramework.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReachabilitySwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxBlocking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxDataSources.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxReachability.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftUtilities.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HMEventSourceManager-Demo/Pods-HMEventSourceManager-Demo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9CE3EB0C66EED316658DFD88 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-HMEventSourceManagerTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B33C35F06D6E425504A3F91E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-HMEventSourceManager-Demo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DC1B5CC7BE4E1D484D9F62F7 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HMEventSourceManager/Pods-HMEventSourceManager-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D3E35FAB1F724C74004C4124 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3E35FCB1F724E4C004C4124 /* HMEventSourceManager.swift in Sources */,
+				D30222011F7357FF00DF36D7 /* HMEventSourceManager+URLSession.swift in Sources */,
+				D30222031F73616100DF36D7 /* HMURLSessionSSEDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D3E35FB51F724C74004C4124 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3E35FCE1F7250DC004C4124 /* HMEventSourceManagerTest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D3E35FD41F7267D9004C4124 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D36897551F7365E800321CBA /* SSEViewController.swift in Sources */,
+				D3E35FDD1F7267D9004C4124 /* ViewController.swift in Sources */,
+				D3E35FED1F726B88004C4124 /* Singleton.swift in Sources */,
+				D3E35FDB1F7267D9004C4124 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D3E35FBC1F724C74004C4124 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D3E35FAF1F724C74004C4124 /* HMEventSourceManager */;
+			targetProxy = D3E35FBB1F724C74004C4124 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		D3E35FDE1F7267D9004C4124 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D3E35FDF1F7267D9004C4124 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D3E35FE31F7267D9004C4124 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D3E35FE41F7267D9004C4124 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D3E35FC21F724C74004C4124 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		D3E35FC31F724C74004C4124 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		D3E35FC51F724C74004C4124 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A2EF6CE34EDF0AF0E66DC98F /* Pods-HMEventSourceManager.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 785WJQ47KY;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = HMEventSourceManager/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.holmusk.HMEventSourceManager;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D3E35FC61F724C74004C4124 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 616C4F8A2CB9E71BFAFD2F15 /* Pods-HMEventSourceManager.release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 785WJQ47KY;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = HMEventSourceManager/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.holmusk.HMEventSourceManager;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		D3E35FC81F724C74004C4124 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EDC51187B74693644E890983 /* Pods-HMEventSourceManagerTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 785WJQ47KY;
+				INFOPLIST_FILE = HMEventSourceManagerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.holmusk.HMEventSourceManagerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "HMEventSourceManagerTests/HMEventSourceManagerTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D3E35FC91F724C74004C4124 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FD4F54EC3133616BDC11BC2D /* Pods-HMEventSourceManagerTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 785WJQ47KY;
+				INFOPLIST_FILE = HMEventSourceManagerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.holmusk.HMEventSourceManagerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "HMEventSourceManagerTests/HMEventSourceManagerTests-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		D3E35FE71F7267D9004C4124 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8172F16C8471BB99FDB90E15 /* Pods-HMEventSourceManager-Demo.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 785WJQ47KY;
+				INFOPLIST_FILE = "HMEventSourceManager-Demo/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.holmusk.HMEventSourceManager-Demo";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D3E35FE81F7267D9004C4124 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5FA9420C8D7D088D8B0E2B06 /* Pods-HMEventSourceManager-Demo.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 785WJQ47KY;
+				INFOPLIST_FILE = "HMEventSourceManager-Demo/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.holmusk.HMEventSourceManager-Demo";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D3E35FAA1F724C74004C4124 /* Build configuration list for PBXProject "HMEventSourceManager" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D3E35FC21F724C74004C4124 /* Debug */,
+				D3E35FC31F724C74004C4124 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D3E35FC41F724C74004C4124 /* Build configuration list for PBXNativeTarget "HMEventSourceManager" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D3E35FC51F724C74004C4124 /* Debug */,
+				D3E35FC61F724C74004C4124 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D3E35FC71F724C74004C4124 /* Build configuration list for PBXNativeTarget "HMEventSourceManagerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D3E35FC81F724C74004C4124 /* Debug */,
+				D3E35FC91F724C74004C4124 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D3E35FE91F7267D9004C4124 /* Build configuration list for PBXNativeTarget "HMEventSourceManager-Demo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D3E35FE71F7267D9004C4124 /* Debug */,
+				D3E35FE81F7267D9004C4124 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D3E35FA71F724C74004C4124 /* Project object */;
+}

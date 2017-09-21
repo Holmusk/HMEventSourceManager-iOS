@@ -1,0 +1,73 @@
+PODS:
+  - Differentiator (2.0.2)
+  - HMRequestFramework/Main (1.0.1):
+    - RxDataSources
+    - SwiftUtilities/Main
+  - ReachabilitySwift (3)
+  - RxBlocking (3.6.1):
+    - RxSwift (~> 3.6)
+  - RxCocoa (3.6.1):
+    - RxSwift (~> 3.6)
+  - RxDataSources (2.0.2):
+    - Differentiator (~> 2.0)
+    - RxCocoa (>= 3.6.1)
+    - RxSwift (>= 3.6.1)
+  - RxReachability (0.1.3):
+    - ReachabilitySwift (~> 3)
+    - RxCocoa (~> 3)
+    - RxSwift (~> 3)
+  - RxSwift (3.6.1)
+  - RxTest (3.6.1):
+    - RxSwift (~> 3.6)
+  - SwiftUtilities/Main (1.4.4):
+    - RxBlocking (~> 3.0)
+    - RxCocoa (~> 3.0)
+    - RxSwift (~> 3.0)
+  - SwiftUtilitiesTests/Main (1.4.3):
+    - RxBlocking (~> 3.0)
+    - RxCocoa (~> 3.0)
+    - RxSwift (~> 3.0)
+    - RxTest (~> 3.0)
+
+DEPENDENCIES:
+  - HMRequestFramework/Main (from `https://github.com/Holmusk/HMRequestFramework-iOS.git`)
+  - ReachabilitySwift
+  - RxReachability
+  - SwiftUtilities/Main (from `https://github.com/protoman92/SwiftUtilities.git`)
+  - SwiftUtilitiesTests/Main (from `https://github.com/protoman92/SwiftUtilities.git`)
+
+EXTERNAL SOURCES:
+  HMRequestFramework:
+    :git: https://github.com/Holmusk/HMRequestFramework-iOS.git
+  SwiftUtilities:
+    :git: https://github.com/protoman92/SwiftUtilities.git
+  SwiftUtilitiesTests:
+    :git: https://github.com/protoman92/SwiftUtilities.git
+
+CHECKOUT OPTIONS:
+  HMRequestFramework:
+    :commit: 9cc2e99ad380d0b3ce7344ad0b6fafce8d446a94
+    :git: https://github.com/Holmusk/HMRequestFramework-iOS.git
+  SwiftUtilities:
+    :commit: ae4ebf8a8c7bf867b017635a0df2637f77dc43c3
+    :git: https://github.com/protoman92/SwiftUtilities.git
+  SwiftUtilitiesTests:
+    :commit: ae4ebf8a8c7bf867b017635a0df2637f77dc43c3
+    :git: https://github.com/protoman92/SwiftUtilities.git
+
+SPEC CHECKSUMS:
+  Differentiator: caa9b3957981a2ac8e6b2eac8a676af461caa604
+  HMRequestFramework: 92acd85bc3fc6c406579b41767872b317d027eb6
+  ReachabilitySwift: f5b9bb30a0777fac8f09ce8b067e32faeb29bb64
+  RxBlocking: 4f4bd5732e8b952e54ae8a57739bcfb645de12bc
+  RxCocoa: 84a08739ab186248c7f31ce4ee92d6f8a947d690
+  RxDataSources: 7f190474a93a206c082c2d74c4cc9c8f7bea4feb
+  RxReachability: 0e781fc978c3c850dda6cafa2c5956ff806a1fcc
+  RxSwift: f9de85ea20cd2f7716ee5409fc13523dc638e4e4
+  RxTest: 1d00348a7848c91ab5bf5d197d2378aa6b2bb356
+  SwiftUtilities: 9d0f3fdfa2b9704cb0ce85c45eb19b5a8cb55b02
+  SwiftUtilitiesTests: c1f348670366760f4cea42d3138f7fdf14cd6c25
+
+PODFILE CHECKSUM: 1eeb352a71cbecf04924a1352071099a00d405c3
+
+COCOAPODS: 1.3.1
