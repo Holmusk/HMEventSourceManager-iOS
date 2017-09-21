@@ -46,13 +46,13 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   HMRequestFramework:
-    :commit: 9cc2e99ad380d0b3ce7344ad0b6fafce8d446a94
+    :commit: 940c9144befa841d48cdd4f6f27baecd7ccf7869
     :git: https://github.com/Holmusk/HMRequestFramework-iOS.git
   SwiftUtilities:
-    :commit: ae4ebf8a8c7bf867b017635a0df2637f77dc43c3
+    :commit: ee76fdde38c2e86fd606bd4012e2d61b4796ead6
     :git: https://github.com/protoman92/SwiftUtilities.git
   SwiftUtilitiesTests:
-    :commit: ae4ebf8a8c7bf867b017635a0df2637f77dc43c3
+    :commit: ee76fdde38c2e86fd606bd4012e2d61b4796ead6
     :git: https://github.com/protoman92/SwiftUtilities.git
 
 SPEC CHECKSUMS:

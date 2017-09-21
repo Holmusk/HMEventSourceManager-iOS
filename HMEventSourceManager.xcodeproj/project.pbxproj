@@ -14,6 +14,7 @@
 		D30222031F73616100DF36D7 /* HMURLSessionSSEDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30222021F73616100DF36D7 /* HMURLSessionSSEDelegate.swift */; };
 		D36897551F7365E800321CBA /* SSEViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36897541F7365E800321CBA /* SSEViewController.swift */; };
 		D39454B91F736E59000A3C1A /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D39454B81F736E59000A3C1A /* README.md */; };
+		D3BC983D1F73834D0038A988 /* HMEventSourceManager+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3BC983C1F73834D0038A988 /* HMEventSourceManager+Rx.swift */; };
 		D3E35FBA1F724C74004C4124 /* HMEventSourceManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3E35FB01F724C74004C4124 /* HMEventSourceManager.framework */; };
 		D3E35FC11F724C74004C4124 /* HMEventSourceManager.h in Headers */ = {isa = PBXBuildFile; fileRef = D3E35FB31F724C74004C4124 /* HMEventSourceManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3E35FCB1F724E4C004C4124 /* HMEventSourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E35FCA1F724E4C004C4124 /* HMEventSourceManager.swift */; };
@@ -48,6 +49,7 @@
 		D30222021F73616100DF36D7 /* HMURLSessionSSEDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMURLSessionSSEDelegate.swift; sourceTree = "<group>"; };
 		D36897541F7365E800321CBA /* SSEViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSEViewController.swift; sourceTree = "<group>"; };
 		D39454B81F736E59000A3C1A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		D3BC983C1F73834D0038A988 /* HMEventSourceManager+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HMEventSourceManager+Rx.swift"; sourceTree = "<group>"; };
 		D3E35FB01F724C74004C4124 /* HMEventSourceManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HMEventSourceManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3E35FB31F724C74004C4124 /* HMEventSourceManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HMEventSourceManager.h; sourceTree = "<group>"; };
 		D3E35FB41F724C74004C4124 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -137,10 +139,11 @@
 			isa = PBXGroup;
 			children = (
 				D3E35FB31F724C74004C4124 /* HMEventSourceManager.h */,
-				D3E35FB41F724C74004C4124 /* Info.plist */,
 				D3E35FCA1F724E4C004C4124 /* HMEventSourceManager.swift */,
+				D3BC983C1F73834D0038A988 /* HMEventSourceManager+Rx.swift */,
 				D30222001F7357FF00DF36D7 /* HMEventSourceManager+URLSession.swift */,
 				D30222021F73616100DF36D7 /* HMURLSessionSSEDelegate.swift */,
+				D3E35FB41F724C74004C4124 /* Info.plist */,
 			);
 			path = HMEventSourceManager;
 			sourceTree = "<group>";
@@ -159,13 +162,13 @@
 			isa = PBXGroup;
 			children = (
 				D3E35FDA1F7267D9004C4124 /* AppDelegate.swift */,
-				D3E35FDC1F7267D9004C4124 /* ViewController.swift */,
-				D3E35FDE1F7267D9004C4124 /* Main.storyboard */,
 				D3E35FE11F7267D9004C4124 /* Assets.xcassets */,
-				D3E35FE31F7267D9004C4124 /* LaunchScreen.storyboard */,
 				D3E35FE61F7267D9004C4124 /* Info.plist */,
+				D3E35FE31F7267D9004C4124 /* LaunchScreen.storyboard */,
+				D3E35FDE1F7267D9004C4124 /* Main.storyboard */,
 				D3E35FEC1F726B88004C4124 /* Singleton.swift */,
 				D36897541F7365E800321CBA /* SSEViewController.swift */,
+				D3E35FDC1F7267D9004C4124 /* ViewController.swift */,
 			);
 			path = "HMEventSourceManager-Demo";
 			sourceTree = "<group>";
@@ -508,6 +511,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3BC983D1F73834D0038A988 /* HMEventSourceManager+Rx.swift in Sources */,
 				D3E35FCB1F724E4C004C4124 /* HMEventSourceManager.swift in Sources */,
 				D30222011F7357FF00DF36D7 /* HMEventSourceManager+URLSession.swift in Sources */,
 				D30222031F73616100DF36D7 /* HMURLSessionSSEDelegate.swift in Sources */,

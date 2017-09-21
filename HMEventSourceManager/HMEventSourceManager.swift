@@ -15,15 +15,16 @@ import SwiftUtilities
 /// Use this class to handle SSE events.
 public struct HMEventSourceManager {
     fileprivate let disposeBag: DisposeBag
-    fileprivate var headers: [String : Any]
     fileprivate var nwChecker: Reachability?
     fileprivate var userDefs: UserDefaults?
-    fileprivate var sseURL: URL?
     
+    // Since reachability.rx does not relay that last event, we need to store
+    // it somewhere for easy access when opening a new SSE connection.
+    let isReachable: Variable<Bool>
     
     fileprivate init() {
         disposeBag = DisposeBag()
-        headers = [:]
+        isReachable = Variable<Bool>(true)
     }
     
     public func networkChecker() -> Reachability {
@@ -42,19 +43,27 @@ public struct HMEventSourceManager {
         }
     }
     
-    public func targetURL() -> URL {
-        if let url = self.sseURL {
-            return url
-        } else {
-            fatalError("URL cannot be nil")
-        }
+    fileprivate func setupBindings() {
+        let disposeBag = self.disposeBag
+        let networkChecker = self.networkChecker()
+        let isReachable = self.isReachable
+        
+        // Get the current reachability status, then subscribe to notifications
+        // later.
+        isReachable.value = networkChecker.isReachable
+        
+        try? networkChecker.startNotifier()
+        
+        networkChecker.rx.isReachable
+            .distinctUntilChanged()
+            .observeOn(MainScheduler.instance)
+            .bind(to: isReachable)
+            .disposed(by: disposeBag)
     }
     
-    public func additionalHeaders() -> [String : Any] {
-        return headers
+    fileprivate func onInstanceBuilt() {
+        setupBindings()
     }
-    
-    public func setupBindings() {}
 }
 
 extension HMEventSourceManager: BuildableType {
@@ -88,67 +97,6 @@ extension HMEventSourceManager: BuildableType {
             manager.userDefs = userDefaults
             return self
         }
-        
-        /// Set the url instance.
-        ///
-        /// - Parameter url: A URL instance.
-        /// - Returns: The current Builder instance.
-        @discardableResult
-        public func with(url: URL?) -> Self {
-            manager.sseURL = url
-            return self
-        }
-        
-        /// Set the url instance.
-        ///
-        /// - Parameter urlString: A String value.
-        /// - Returns: The current Builder instance.
-        @discardableResult
-        public func with(urlString: String?) -> Self {
-            if let urlString = urlString {
-                return self.with(url: URL(string: urlString))
-            } else {
-                return self
-            }
-        }
-        
-        /// Add headers to be used with the SSE URLSession.
-        ///
-        /// - Parameter headers: A Dictionary of headers.
-        /// - Returns: The current Builder instance.
-        @discardableResult
-        public func add(headers: [String : Any]?) -> Self {
-            if let headers = headers {
-                manager.headers.updateValues(from: headers)
-            }
-            
-            return self
-        }
-        
-        /// Add one header to the current headers.
-        ///
-        /// - Parameters:
-        ///   - header: Any instance.
-        ///   - key: A String value.
-        /// - Returns: The current Builder instance.
-        @discardableResult
-        public func add(header: Any?, forKey key: String) -> Self {
-            if let header = header {
-                manager.headers.updateValue(header, forKey: key)
-            }
-            
-            return self
-        }
-        
-        /// Set the headers to be added to the SSE URLSession.
-        ///
-        /// - Parameter headers: A Dictionary of headers.
-        /// - Returns: The current Builder instance.
-        @discardableResult
-        public func with(headers: [String : Any]?) -> Self {
-            manager.headers.removeAll()
-            return self.add(headers: headers)
-        }
     }
 }
 
@@ -161,14 +109,13 @@ extension HMEventSourceManager.Builder: BuilderType {
             return self
                 .with(networkChecker: buildable.networkChecker())
                 .with(userDefaults: buildable.userDefaults())
-                .with(url: buildable.targetURL())
-                .with(headers: buildable.additionalHeaders())
         } else {
             return self
         }
     }
     
     public func build() -> Buildable {
+        manager.onInstanceBuilt()
         return manager
     }
 }

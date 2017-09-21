@@ -6,50 +6,35 @@
 //  Copyright © 2017 Holmusk. All rights reserved.
 //
 
+import HMRequestFramework
 import RxSwift
 import SwiftUtilities
 
 public extension HMEventSourceManager {
-    public func openSSEConnection() -> Observable<Try<Data>> {
-        var additionalHeaders = self.additionalHeaders()
-        additionalHeaders["Accept"] = "text/event-stream"
-        additionalHeaders["Cache-Control"] = "no-cache"
-        
-        let config = URLSessionConfiguration.default
-        config.timeoutIntervalForRequest = TimeInterval(INT_MAX)
-        config.timeoutIntervalForResource = TimeInterval(INT_MAX)
-        config.httpAdditionalHeaders = additionalHeaders
-        
-        let queue = OperationQueue()
-        return Observable.create({self.openSSEConnection(config, queue, $0)})
+    public typealias Request = HMNetworkRequest
+    
+    /// Get a cloned request with some default parameters.
+    ///
+    /// - Parameter request: A Request instance.
+    /// - Returns: A Request instance.
+    func requestWithDefaultParams(_ request: Request) -> Request {
+        return request.cloneBuilder()
+            .with(operation: .get)
+            .with(retries: Int.max)
+            .add(header: "text/event-stream", forKey: "Accept")
+            .add(header: "no-cache", forKey: "Cache-Control")
+            .build()
     }
     
-    func openSSEConnection<O>(_ configuration: URLSessionConfiguration,
-                              _ queue: OperationQueue,
-                              _ obs: O) -> Disposable where
-        O: ObserverType, O.E == Try<Data>
-    {
-        let delegate = HMURLSessionSSEDelegate.builder()
-            .with(didReceiveResponse: { debugPrint($0) })
-            .with(didReceiveData: { obs.onNext(Try.success($0)) })
-            .with(didCompleteWithError: {
-                if let error = $0 {
-                    obs.onNext(Try.failure(error))
-                }
-            })
-            .build()
-        
-        let urlSession = URLSession(configuration: configuration,
-                                    delegate: delegate,
-                                    delegateQueue: queue)
-        
-        let url = self.targetURL()
-        let task = urlSession.dataTask(with: url)
-        task.resume()
-        
-        return Disposables.create(with: {
-            task.cancel()
-            urlSession.invalidateAndCancel()
-        })
+    /// Get a URLSessionConfiguration to use with SSE URLSession.
+    ///
+    /// - Parameter request: A Request instance.
+    /// - Returns: A URLSessionConfiguration instance.
+    func urlSessionConfig(_ request: Request) -> URLSessionConfiguration {
+        let config = URLSessionConfiguration.default
+        config.timeoutIntervalForRequest = TimeInterval(Int.max)
+        config.timeoutIntervalForResource = TimeInterval(Int.max)
+        config.httpAdditionalHeaders = request.headers()
+        return config
     }
 }
