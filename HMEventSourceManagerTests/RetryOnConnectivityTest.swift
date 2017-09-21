@@ -18,7 +18,7 @@ import XCTest
 public final class RetryOnConnectivityTest: RootSSETest {
     public func test_internetReconnected_shouldRetryConnection() {
         /// Setup
-        let observer = scheduler.createObserver(Event<Result>.self)
+        let observer = scheduler.createObserver([Event<Result>].self)
         let expect = expectation(description: "Should have completed")
         let disposeBag = self.disposeBag!
         let sseManager = self.newSSEManager()
@@ -39,9 +39,8 @@ public final class RetryOnConnectivityTest: RootSSETest {
         let waitTime: TimeInterval = 2
         let restartTimes = 10
         
-        sseManager.rx.retryOnConnectivitySSE(request,
-                                             connectionObs,
-                                             terminateSbj)
+        sseManager.rx.retryOnConnectivitySSE(request, connectionObs)
+            .takeUntil(terminateSbj)
             .observeOn(MainScheduler.instance)
             .doOnDispose(expect.fulfill)
             .subscribe(observer)

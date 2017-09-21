@@ -15,6 +15,7 @@
 		D384B9A41F7408D900999116 /* HMSSEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D384B9A31F7408D900999116 /* HMSSEvent.swift */; };
 		D384B9A61F741DC400999116 /* HMSSEData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D384B9A51F741DC400999116 /* HMSSEData.swift */; };
 		D39454B91F736E59000A3C1A /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D39454B81F736E59000A3C1A /* README.md */; };
+		D3B063A41F743E4B00A01B98 /* HMSSEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B063A31F743E4B00A01B98 /* HMSSEvents.swift */; };
 		D3BC983D1F73834D0038A988 /* HMEventSourceManager+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3BC983C1F73834D0038A988 /* HMEventSourceManager+Rx.swift */; };
 		D3E35FBA1F724C74004C4124 /* HMEventSourceManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3E35FB01F724C74004C4124 /* HMEventSourceManager.framework */; };
 		D3E35FC11F724C74004C4124 /* HMEventSourceManager.h in Headers */ = {isa = PBXBuildFile; fileRef = D3E35FB31F724C74004C4124 /* HMEventSourceManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -56,6 +57,7 @@
 		D384B9A31F7408D900999116 /* HMSSEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMSSEvent.swift; sourceTree = "<group>"; };
 		D384B9A51F741DC400999116 /* HMSSEData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMSSEData.swift; sourceTree = "<group>"; };
 		D39454B81F736E59000A3C1A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		D3B063A31F743E4B00A01B98 /* HMSSEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMSSEvents.swift; sourceTree = "<group>"; };
 		D3BC983C1F73834D0038A988 /* HMEventSourceManager+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HMEventSourceManager+Rx.swift"; sourceTree = "<group>"; };
 		D3E35FB01F724C74004C4124 /* HMEventSourceManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HMEventSourceManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3E35FB31F724C74004C4124 /* HMEventSourceManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HMEventSourceManager.h; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 				D3FD13A71F73FDD1006AAD54 /* HMEventSourceManagerType.swift */,
 				D384B9A51F741DC400999116 /* HMSSEData.swift */,
 				D384B9A31F7408D900999116 /* HMSSEvent.swift */,
+				D3B063A31F743E4B00A01B98 /* HMSSEvents.swift */,
 				D30222021F73616100DF36D7 /* HMURLSessionSSEDelegate.swift */,
 				D3E35FB41F724C74004C4124 /* Info.plist */,
 			);
@@ -529,6 +532,7 @@
 				D3BC983D1F73834D0038A988 /* HMEventSourceManager+Rx.swift in Sources */,
 				D384B9A41F7408D900999116 /* HMSSEvent.swift in Sources */,
 				D3FD13A81F73FDD1006AAD54 /* HMEventSourceManagerType.swift in Sources */,
+				D3B063A41F743E4B00A01B98 /* HMSSEvents.swift in Sources */,
 				D3E35FCB1F724E4C004C4124 /* HMEventSourceManager.swift in Sources */,
 				D384B9A61F741DC400999116 /* HMSSEData.swift in Sources */,
 				D30222031F73616100DF36D7 /* HMURLSessionSSEDelegate.swift in Sources */,

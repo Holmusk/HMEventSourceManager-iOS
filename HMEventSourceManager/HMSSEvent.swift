@@ -18,6 +18,17 @@ public enum HMSSEvent<T> {
     case dataReceived(T)
     case dummy
     
+    /// Get the associated T value.
+    public var value: T? {
+        switch self {
+        case .dataReceived(let value):
+            return value
+            
+        default:
+            return nil
+        }
+    }
+    
     /// Map value type from T to T2.
     ///
     /// - Parameter f: Transform function.

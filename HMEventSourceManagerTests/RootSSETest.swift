@@ -15,7 +15,7 @@ import XCTest
 @testable import HMEventSourceManager
 
 public class RootSSETest: XCTestCase {
-    public typealias Event<T> = HMSSEvent<T>
+    public typealias Event = HMSSEvent
     public typealias Result = HMEventSourceManagerType.Result
     public var scheduler: TestScheduler!
     public var disposeBag: DisposeBag!

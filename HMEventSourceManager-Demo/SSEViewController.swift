@@ -7,10 +7,13 @@
 //
 
 import HMEventSourceManager
+import RxDataSources
 import RxSwift
 import SwiftUtilities
 
 public final class SSEViewController: UIViewController {
+    @IBOutlet fileprivate weak var tableView1: UITableView!
+    
     fileprivate let disposeBag: DisposeBag! = DisposeBag()
     fileprivate var sseManager: HMEventSourceManager!
     
@@ -37,9 +40,13 @@ public final class SSEViewController: UIViewController {
         let sseManager = Singleton().sseManager
         self.sseManager = sseManager
         
-        sseManager.rx.retryOnConnectivitySSE(request, self.rx.deallocated)
+        sseManager.rx.retryOnConnectivitySSE(request)
             .logNext()
             .subscribe()
             .disposed(by: disposeBag)
     }
+}
+
+public final class SSECell: UITableViewCell {
+    @IBOutlet fileprivate weak var label1: UILabel!
 }

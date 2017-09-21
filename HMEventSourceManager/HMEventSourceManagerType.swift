@@ -14,7 +14,7 @@ import SwiftUtilities
 public protocol HMEventSourceManagerType: ReactiveCompatible {
     typealias Request = HMNetworkRequest
     typealias Result = HMSSEData
-    typealias Event<T> = HMSSEvent<T>
+    typealias Event = HMSSEvent
     
     var newlineCharacters: [String] { get }
     
@@ -59,7 +59,6 @@ public extension HMEventSourceManagerType {
     func requestWithDefaultParams(_ request: Request) -> Request {
         return request.cloneBuilder()
             .with(operation: .get)
-            .with(retries: Int.max)
             .add(header: "text/event-stream", forKey: "Accept")
             .add(header: "no-cache", forKey: "Cache-Control")
             .build()
@@ -231,7 +230,7 @@ public extension HMEventSourceManagerType {
 public extension Reactive where Base: HMEventSourceManagerType {
     public typealias Request = HMEventSourceManager.Request
     typealias Result = HMEventSourceManager.Result
-    typealias Event<T> = HMEventSourceManager.Event<T>
+    typealias Event = HMEventSourceManager.Event
     
     /// We need a separate isReachable Observable because reachability.rx
     /// does not relay that last event.
@@ -257,42 +256,25 @@ public extension Reactive where Base: HMEventSourceManagerType {
     /// - Parameters:
     ///   - request: A Request instance.
     ///   - sseObs: A SSE connection creator Observable.
-    ///   - disconnectedObs: A disconnected notifier.
-    ///   - terminateObs: A terminate notifier.
     /// - Returns: An Observable instance.
-    func reachabilityAwareSSE<SO,TO>(_ request: Request,
-                                     _ sseObs: SO,
-                                     _ terminateObs: TO)
-        -> Observable<Event<Result>> where
-        SO: ObservableConvertibleType, SO.E == HMSSEvent<Data>,
-        TO: ObservableConvertibleType, TO.E == Void
+    func reachabilityAwareSSE<SO>(_ request: Request, _ sseObs: SO)
+        -> Observable<[Event<Result>]> where
+        SO: ObservableConvertibleType, SO.E == HMSSEvent<Data>
     {
         let newRequest = base.requestWithDefaultParams(request)
-        
-        let terminateNotifier = Observable.amb([
-            self.isDisconnected,
-            terminateObs.asObservable()
-        ])
-        
-        let retries = newRequest.retries()
         let delay = newRequest.retryDelay()
         let retryScheduler = ConcurrentDispatchQueueScheduler(qos: .background)
         
         return sseObs.asObservable()
-            .delayRetry(retries: retries,
-                        delay: delay,
-                        scheduler: retryScheduler,
-                        terminateObs: terminateNotifier)
-            .flatMap({event -> Observable<Event<Result>> in
-                switch event {
-                case .dataReceived(let data):
-                    return Observable.from(self.base.parseEventStream(data))
-                    
-                default:
-                    return Observable.just(event.cast(to: HMSSEData.self))
+            .delayRetry(delay: delay, scheduler: retryScheduler)
+            .map({event -> [Event<Result>] in
+                if let value = event.value {
+                    return self.base.parseEventStream(value)
+                } else {
+                    return [event.cast(to: HMSSEData.self)]
                 }
             })
-            .takeUntil(terminateNotifier)
+            .takeUntil(self.isDisconnected)
             .subscribeOn(qos: .background)
             .observeOn(qos: .background)
     }
@@ -302,35 +284,21 @@ public extension Reactive where Base: HMEventSourceManagerType {
     /// - Parameters:
     ///   - request: A Request instance.
     ///   - sseObs: A SSE connection creator Observable.
-    ///   - connectedObs: A connected notifier.
-    ///   - disconnectedObs: A disconnected notifier.
-    ///   - terminateObs: An Observable instance that notifies when to stop retrying.
     /// - Returns: An Observable instance.
-    func retryOnConnectivitySSE<SO,TO>(_ request: Request,
-                                       _ sseObs: SO,
-                                       _ terminateObs: TO)
-        -> Observable<Event<Result>> where
-        SO: ObservableConvertibleType, SO.E == HMSSEvent<Data>,
-        TO: ObservableConvertibleType, TO.E == Void
+    func retryOnConnectivitySSE<SO>(_ request: Request, _ sseObs: SO)
+        -> Observable<[Event<Result>]> where
+        SO: ObservableConvertibleType, SO.E == HMSSEvent<Data>
     {
-        let connectionObs = reachabilityAwareSSE(request, sseObs, terminateObs)
-        
-        return self.isConnected
-            .flatMapLatest({connectionObs})
-            .takeUntil(terminateObs.asObservable())
+        let connectionObs = reachabilityAwareSSE(request, sseObs)
+        return self.isConnected.flatMapLatest({connectionObs})
     }
     
     /// Open a new SSE connection only when there is internet connectivity.
     ///
-    /// - Parameters:
-    ///   - request: A Request instance.
-    ///   - terminateObs: An Observable instance that notifies when to stop retrying.
+    /// - Parameters request: A Request instance.
     /// - Returns: An Observable instance.
-    func retryOnConnectivitySSE<TO>(_ request: Request, _ terminateObs: TO)
-        -> Observable<Event<Result>> where
-        TO: ObservableConvertibleType, TO.E == Void
-    {
+    func retryOnConnectivitySSE(_ request: Request) -> Observable<[Event<Result>]> {
         let sseObs = Observable.create({self.base.openConnection(request, $0)})
-        return retryOnConnectivitySSE(request, sseObs, terminateObs)
+        return retryOnConnectivitySSE(request, sseObs)
     }
 }

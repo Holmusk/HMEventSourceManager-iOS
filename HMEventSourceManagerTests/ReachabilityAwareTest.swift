@@ -17,15 +17,13 @@ import XCTest
 
 public final class ReachabilityAwareTest: RootSSETest {
     public func test_terminateObsEmitsEvent_shoudTerminateSSE(
-        _ connectionTrigger: @escaping (AnyObserver<Bool>) -> Void,
-        _ terminationTrigger: @escaping (AnyObserver<Void>) -> Void) {
+        _ connectionTrigger: @escaping (AnyObserver<Bool>) -> Void) {
         /// Setup
-        let observer = scheduler.createObserver(Event<Result>.self)
+        let observer = scheduler.createObserver([Event<Result>].self)
         let expect = expectation(description: "Should have completed")
         let disposeBag = self.disposeBag!
         let sseManager = self.newSSEManager()
         let request = HMEventSourceManager.Request.builder().build()
-        let terminateSbj = PublishSubject<Void>()
         
         let connectionObs = Observable<HMSSEvent<Data>>.create({
             $0.onError(Exception("Error!"))
@@ -37,7 +35,7 @@ public final class ReachabilityAwareTest: RootSSETest {
         let currentDate = Date()
         var actualWait: TimeInterval = 0
         
-        sseManager.rx.reachabilityAwareSSE(request, connectionObs, terminateSbj)
+        sseManager.rx.reachabilityAwareSSE(request, connectionObs)
             .observeOn(MainScheduler.instance)
             .doOnDispose({actualWait = Date().timeIntervalSince(currentDate)})
             .doOnDispose(expect.fulfill)
@@ -52,7 +50,6 @@ public final class ReachabilityAwareTest: RootSSETest {
             // Trigger termination here.
             mainThread({
                 connectionTrigger(sseManager.rx.triggerReachable)
-                terminationTrigger(terminateSbj.asObserver())
             })
         })
         
@@ -63,11 +60,7 @@ public final class ReachabilityAwareTest: RootSSETest {
         XCTAssertTrue(actualWait < timeout)
     }
     
-    public func test_terminateManually_shoudTerminateSSE() {
-        test_terminateObsEmitsEvent_shoudTerminateSSE({_ in}, {$0.onNext(())})
-    }
-    
     public func test_internetDisconnected_shoudTerminateSSE() {
-        test_terminateObsEmitsEvent_shoudTerminateSSE({$0.onNext(false)}, {_ in})
+        test_terminateObsEmitsEvent_shoudTerminateSSE({$0.onNext(false)})
     }
 }
