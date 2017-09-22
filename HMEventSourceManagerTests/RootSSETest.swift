@@ -6,7 +6,6 @@
 //  Copyright © 2017 Holmusk. All rights reserved.
 //
 
-import HMRequestFramework
 import ReachabilitySwift
 import RxSwift
 import RxTest

@@ -1,5 +1,5 @@
 //
-//  HMSSEManager+Rx.swift
+//  HMSSEManager+Extension.swift
 //  HMEventSourceManager
 //
 //  Created by Hai Pham on 21/9/17.

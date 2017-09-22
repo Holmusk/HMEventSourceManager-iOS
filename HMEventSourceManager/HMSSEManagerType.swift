@@ -56,6 +56,11 @@ public protocol HMSSEManagerType: ReactiveCompatible {
 }
 
 public extension HMSSEManagerType {
+    public static var acceptKey: String { return "Accept" }
+    public static var cacheControlKey: String { return "Cache-Control" }
+    public static var lastEventIdKey: String { return "Last-Event-Id" }
+    public static var noCache: String { return "no-cache" }
+    public static var textEventStream: String { return "text/event-stream" }
     
     /// Get a unique URL identifier to access last event id in local storage.
     ///
@@ -108,7 +113,7 @@ public extension HMSSEManagerType {
     func storeLastEventId<S>(_ request: Request, _ events: S) where
         S: Sequence, S.Iterator.Element == Event<Result>
     {
-        if let id = HMSSEvents.values(events).flatMap({$0.id}).last {
+        if let id = HMSSEvents.eventData(events).flatMap({$0.id}).last {
             let lastEventIdKey = self.lastEventIdKey(request)
             storeLastEventIdWithKey(lastEventIdKey, id)
         }
@@ -119,10 +124,12 @@ public extension HMSSEManagerType {
     /// - Parameter request: A Request instance.
     /// - Returns: A Request instance.
     func requestWithDefaultParams(_ request: Request) -> Request {
+        let cls = Self.self
+        
         return request.cloneBuilder()
-            .add(header: "text/event-stream", forKey: "Accept")
-            .add(header: "no-cache", forKey: "Cache-Control")
-            .add(header: lastEventId(request), forKey: "Last-Event-Id")
+            .add(header: cls.textEventStream, forKey: cls.acceptKey)
+            .add(header: cls.noCache, forKey: cls.cacheControlKey)
+            .add(header: lastEventId(request), forKey: cls.lastEventIdKey)
             .build()
     }
     

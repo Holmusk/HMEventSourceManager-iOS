@@ -6,7 +6,7 @@ Simple open a stream with a HMSSERequest object, and subscribe to it to receive 
 
 ```
 sseManager.rx.openConnection(request)
-    .map(HMSSEvents.values)
+    .map(HMSSEvents.eventData)
     .observeOn(MainScheduler.instance)
     .subscribe()
     .disposed(by: disposeBag)

@@ -51,7 +51,7 @@ public final class SSEViewController: UIViewController {
         self.sseManager = sseManager
         
         sseManager.rx.openConnection(request)
-            .map(HMSSEvents.values)
+            .map(HMSSEvents.eventData)
             .throttle(1, scheduler: MainScheduler.instance)
             .observeOn(MainScheduler.instance)
             .doOnNext({[weak self] in self?.dataSource.append(contentsOf: $0)})

@@ -84,8 +84,7 @@ public enum HMSSEvent<T> {
     ///   - f: Transform function.
     ///   - m: Transform function.
     /// - Returns: A HMSSEvent instance.
-    fileprivate func mapValue<T2>(_ t: T,
-                                  _ f: (T) throws -> T2,
+    fileprivate func mapValue<T2>(_ t: T, _ f: (T) throws -> T2,
                                   _ m: (T2) -> HMSSEvent<T2>) -> HMSSEvent<T2> {
         if let t2 = try? f(t) {
             return m(t2)

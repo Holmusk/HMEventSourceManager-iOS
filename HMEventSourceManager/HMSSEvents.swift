@@ -11,11 +11,11 @@ import SwiftUtilities
 /// Utility class for HMSSEvent.
 public final class HMSSEvents {
     
-    /// Get all available values from a SSE Sequence.
+    /// Get all available event data from a SSE Sequence.
     ///
     /// - Parameter events: A Sequence of HMSSEvent.
     /// - Returns: An Array of T.
-    public static func values<S,T>(_ events: S) -> [T] where
+    public static func eventData<S,T>(_ events: S) -> [T] where
         S: Sequence, S.Iterator.Element == HMSSEvent<T>
     {
         return events.flatMap({$0.value})
