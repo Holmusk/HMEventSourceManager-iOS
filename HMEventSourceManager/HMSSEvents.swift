@@ -6,6 +6,8 @@
 //  Copyright © 2017 Holmusk. All rights reserved.
 //
 
+import SwiftUtilities
+
 /// Utility class for HMSSEvent.
 public final class HMSSEvents {
     

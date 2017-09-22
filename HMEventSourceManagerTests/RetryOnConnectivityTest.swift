@@ -22,24 +22,31 @@ public final class RetryOnConnectivityTest: RootSSETest {
         let expect = expectation(description: "Should have completed")
         let disposeBag = self.disposeBag!
         let sseManager = self.newSSEManager()
-        let request = HMEventSourceManager.Request.builder().build()
         let terminateSbj = PublishSubject<Void>()
         var currentIteration = 0
         
-        let connectionObs = Observable<HMSSEvent<Data>>.create({
+        let request = HMSSEManager.Request.builder()
+            .with(urlString: "MockURL")
+            .build()
+        
+        let connectionObs = Observable<Event<Data>>.create({
             currentIteration += 1
             
             for _ in (0..<Int.max) {
-                $0.onNext(HMSSEvent.dummy)
+                $0.onNext(Event<Data>.dummy)
             }
             
             return Disposables.create()
         })
         
+        let sseFn: (Request) -> Observable<[Event<Result>]> = {
+            sseManager.rx.reachabilityAwareSSE($0, connectionObs)
+        }
+        
         let waitTime: TimeInterval = 2
         let restartTimes = 10
         
-        sseManager.rx.retryOnConnectivitySSE(request, connectionObs)
+        sseManager.rx.retryOnConnectivitySSE(request, sseFn)
             .takeUntil(terminateSbj)
             .observeOn(MainScheduler.instance)
             .doOnDispose(expect.fulfill)

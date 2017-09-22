@@ -10,16 +10,21 @@
 		24D9AF6614483AD4CCA84189 /* Pods_HMEventSourceManagerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3274A7EBC269B79257597859 /* Pods_HMEventSourceManagerTests.framework */; };
 		759F60C4B08CED81870DFD7F /* Pods_HMEventSourceManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BE841FFFCBE313EA8862059 /* Pods_HMEventSourceManager.framework */; };
 		A9ED25AE06EB8AFE3F6EECE9 /* Pods_HMEventSourceManager_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F0F7AFC1B01A2CD6F12990B /* Pods_HMEventSourceManager_Demo.framework */; };
+		D301FDBF1F74AFE20039181A /* SSECell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D301FDBE1F74AFE20039181A /* SSECell.xib */; };
+		D301FDC11F74B4D20039181A /* HMSSERequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D301FDC01F74B4D20039181A /* HMSSERequest.swift */; };
 		D30222031F73616100DF36D7 /* HMURLSessionSSEDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30222021F73616100DF36D7 /* HMURLSessionSSEDelegate.swift */; };
+		D340747A1F74C78400E0F79D /* SaveLastEventIDTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34074791F74C78400E0F79D /* SaveLastEventIDTest.swift */; };
+		D340747C1F74CEA200E0F79D /* TestUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = D340747B1F74CEA200E0F79D /* TestUtil.swift */; };
+		D340747E1F74D8FD00E0F79D /* HMEventSourceManager.podspec in Resources */ = {isa = PBXBuildFile; fileRef = D340747D1F74D8FC00E0F79D /* HMEventSourceManager.podspec */; };
 		D36897551F7365E800321CBA /* SSEViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36897541F7365E800321CBA /* SSEViewController.swift */; };
 		D384B9A41F7408D900999116 /* HMSSEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D384B9A31F7408D900999116 /* HMSSEvent.swift */; };
 		D384B9A61F741DC400999116 /* HMSSEData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D384B9A51F741DC400999116 /* HMSSEData.swift */; };
 		D39454B91F736E59000A3C1A /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D39454B81F736E59000A3C1A /* README.md */; };
 		D3B063A41F743E4B00A01B98 /* HMSSEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B063A31F743E4B00A01B98 /* HMSSEvents.swift */; };
-		D3BC983D1F73834D0038A988 /* HMEventSourceManager+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3BC983C1F73834D0038A988 /* HMEventSourceManager+Rx.swift */; };
+		D3BC983D1F73834D0038A988 /* HMSSEManager+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3BC983C1F73834D0038A988 /* HMSSEManager+Rx.swift */; };
 		D3E35FBA1F724C74004C4124 /* HMEventSourceManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3E35FB01F724C74004C4124 /* HMEventSourceManager.framework */; };
 		D3E35FC11F724C74004C4124 /* HMEventSourceManager.h in Headers */ = {isa = PBXBuildFile; fileRef = D3E35FB31F724C74004C4124 /* HMEventSourceManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D3E35FCB1F724E4C004C4124 /* HMEventSourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E35FCA1F724E4C004C4124 /* HMEventSourceManager.swift */; };
+		D3E35FCB1F724E4C004C4124 /* HMSSEManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E35FCA1F724E4C004C4124 /* HMSSEManager.swift */; };
 		D3E35FCE1F7250DC004C4124 /* ReachabilityAwareTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E35FCD1F7250DC004C4124 /* ReachabilityAwareTest.swift */; };
 		D3E35FDB1F7267D9004C4124 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E35FDA1F7267D9004C4124 /* AppDelegate.swift */; };
 		D3E35FDD1F7267D9004C4124 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E35FDC1F7267D9004C4124 /* ViewController.swift */; };
@@ -28,7 +33,7 @@
 		D3E35FE51F7267D9004C4124 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3E35FE31F7267D9004C4124 /* LaunchScreen.storyboard */; };
 		D3E35FED1F726B88004C4124 /* Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E35FEC1F726B88004C4124 /* Singleton.swift */; };
 		D3E9DB611F73C3020026F4FC /* HMEventSourceManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3E35FB01F724C74004C4124 /* HMEventSourceManager.framework */; };
-		D3FD13A81F73FDD1006AAD54 /* HMEventSourceManagerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FD13A71F73FDD1006AAD54 /* HMEventSourceManagerType.swift */; };
+		D3FD13A81F73FDD1006AAD54 /* HMSSEManagerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FD13A71F73FDD1006AAD54 /* HMSSEManagerType.swift */; };
 		D3FD13AA1F73FF4E006AAD54 /* MockEventStreamManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FD13A91F73FF4E006AAD54 /* MockEventStreamManager.swift */; };
 		D3FD13AC1F74053D006AAD54 /* RootSSETest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FD13AB1F74053D006AAD54 /* RootSSETest.swift */; };
 		D3FD13AE1F7405AD006AAD54 /* RetryOnConnectivityTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FD13AD1F7405AD006AAD54 /* RetryOnConnectivityTest.swift */; };
@@ -52,19 +57,24 @@
 		8172F16C8471BB99FDB90E15 /* Pods-HMEventSourceManager-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HMEventSourceManager-Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HMEventSourceManager-Demo/Pods-HMEventSourceManager-Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		9F0F7AFC1B01A2CD6F12990B /* Pods_HMEventSourceManager_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HMEventSourceManager_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2EF6CE34EDF0AF0E66DC98F /* Pods-HMEventSourceManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HMEventSourceManager.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HMEventSourceManager/Pods-HMEventSourceManager.debug.xcconfig"; sourceTree = "<group>"; };
+		D301FDBE1F74AFE20039181A /* SSECell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SSECell.xib; sourceTree = "<group>"; };
+		D301FDC01F74B4D20039181A /* HMSSERequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMSSERequest.swift; sourceTree = "<group>"; };
 		D30222021F73616100DF36D7 /* HMURLSessionSSEDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMURLSessionSSEDelegate.swift; sourceTree = "<group>"; };
+		D34074791F74C78400E0F79D /* SaveLastEventIDTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveLastEventIDTest.swift; sourceTree = "<group>"; };
+		D340747B1F74CEA200E0F79D /* TestUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtil.swift; sourceTree = "<group>"; };
+		D340747D1F74D8FC00E0F79D /* HMEventSourceManager.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HMEventSourceManager.podspec; sourceTree = "<group>"; };
 		D36897541F7365E800321CBA /* SSEViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSEViewController.swift; sourceTree = "<group>"; };
 		D384B9A31F7408D900999116 /* HMSSEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMSSEvent.swift; sourceTree = "<group>"; };
 		D384B9A51F741DC400999116 /* HMSSEData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMSSEData.swift; sourceTree = "<group>"; };
 		D39454B81F736E59000A3C1A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D3B063A31F743E4B00A01B98 /* HMSSEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMSSEvents.swift; sourceTree = "<group>"; };
-		D3BC983C1F73834D0038A988 /* HMEventSourceManager+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HMEventSourceManager+Rx.swift"; sourceTree = "<group>"; };
+		D3BC983C1F73834D0038A988 /* HMSSEManager+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HMSSEManager+Rx.swift"; sourceTree = "<group>"; };
 		D3E35FB01F724C74004C4124 /* HMEventSourceManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HMEventSourceManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3E35FB31F724C74004C4124 /* HMEventSourceManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HMEventSourceManager.h; sourceTree = "<group>"; };
 		D3E35FB41F724C74004C4124 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D3E35FB91F724C74004C4124 /* HMEventSourceManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HMEventSourceManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3E35FC01F724C74004C4124 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D3E35FCA1F724E4C004C4124 /* HMEventSourceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMEventSourceManager.swift; sourceTree = "<group>"; };
+		D3E35FCA1F724E4C004C4124 /* HMSSEManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMSSEManager.swift; sourceTree = "<group>"; };
 		D3E35FCD1F7250DC004C4124 /* ReachabilityAwareTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityAwareTest.swift; sourceTree = "<group>"; };
 		D3E35FD81F7267D9004C4124 /* HMEventSourceManager-Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HMEventSourceManager-Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3E35FDA1F7267D9004C4124 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -74,7 +84,7 @@
 		D3E35FE41F7267D9004C4124 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D3E35FE61F7267D9004C4124 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D3E35FEC1F726B88004C4124 /* Singleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Singleton.swift; sourceTree = "<group>"; };
-		D3FD13A71F73FDD1006AAD54 /* HMEventSourceManagerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMEventSourceManagerType.swift; sourceTree = "<group>"; };
+		D3FD13A71F73FDD1006AAD54 /* HMSSEManagerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMSSEManagerType.swift; sourceTree = "<group>"; };
 		D3FD13A91F73FF4E006AAD54 /* MockEventStreamManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockEventStreamManager.swift; sourceTree = "<group>"; };
 		D3FD13AB1F74053D006AAD54 /* RootSSETest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootSSETest.swift; sourceTree = "<group>"; };
 		D3FD13AD1F7405AD006AAD54 /* RetryOnConnectivityTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryOnConnectivityTest.swift; sourceTree = "<group>"; };
@@ -128,6 +138,7 @@
 		D3E35FA61F724C74004C4124 = {
 			isa = PBXGroup;
 			children = (
+				D340747D1F74D8FC00E0F79D /* HMEventSourceManager.podspec */,
 				D39454B81F736E59000A3C1A /* README.md */,
 				D3E35FB21F724C74004C4124 /* HMEventSourceManager */,
 				D3E35FBD1F724C74004C4124 /* HMEventSourceManagerTests */,
@@ -152,14 +163,15 @@
 			isa = PBXGroup;
 			children = (
 				D3E35FB31F724C74004C4124 /* HMEventSourceManager.h */,
-				D3E35FCA1F724E4C004C4124 /* HMEventSourceManager.swift */,
-				D3BC983C1F73834D0038A988 /* HMEventSourceManager+Rx.swift */,
-				D3FD13A71F73FDD1006AAD54 /* HMEventSourceManagerType.swift */,
+				D3E35FCA1F724E4C004C4124 /* HMSSEManager.swift */,
+				D3BC983C1F73834D0038A988 /* HMSSEManager+Rx.swift */,
+				D3FD13A71F73FDD1006AAD54 /* HMSSEManagerType.swift */,
 				D384B9A51F741DC400999116 /* HMSSEData.swift */,
 				D384B9A31F7408D900999116 /* HMSSEvent.swift */,
 				D3B063A31F743E4B00A01B98 /* HMSSEvents.swift */,
 				D30222021F73616100DF36D7 /* HMURLSessionSSEDelegate.swift */,
 				D3E35FB41F724C74004C4124 /* Info.plist */,
+				D301FDC01F74B4D20039181A /* HMSSERequest.swift */,
 			);
 			path = HMEventSourceManager;
 			sourceTree = "<group>";
@@ -168,10 +180,12 @@
 			isa = PBXGroup;
 			children = (
 				D3E35FC01F724C74004C4124 /* Info.plist */,
-				D3E35FCD1F7250DC004C4124 /* ReachabilityAwareTest.swift */,
 				D3FD13A91F73FF4E006AAD54 /* MockEventStreamManager.swift */,
-				D3FD13AB1F74053D006AAD54 /* RootSSETest.swift */,
+				D3E35FCD1F7250DC004C4124 /* ReachabilityAwareTest.swift */,
 				D3FD13AD1F7405AD006AAD54 /* RetryOnConnectivityTest.swift */,
+				D3FD13AB1F74053D006AAD54 /* RootSSETest.swift */,
+				D34074791F74C78400E0F79D /* SaveLastEventIDTest.swift */,
+				D340747B1F74CEA200E0F79D /* TestUtil.swift */,
 			);
 			path = HMEventSourceManagerTests;
 			sourceTree = "<group>";
@@ -185,6 +199,7 @@
 				D3E35FE31F7267D9004C4124 /* LaunchScreen.storyboard */,
 				D3E35FDE1F7267D9004C4124 /* Main.storyboard */,
 				D3E35FEC1F726B88004C4124 /* Singleton.swift */,
+				D301FDBE1F74AFE20039181A /* SSECell.xib */,
 				D36897541F7365E800321CBA /* SSEViewController.swift */,
 				D3E35FDC1F7267D9004C4124 /* ViewController.swift */,
 			);
@@ -335,6 +350,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D340747E1F74D8FD00E0F79D /* HMEventSourceManager.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,6 +361,7 @@
 				D3E35FE51F7267D9004C4124 /* LaunchScreen.storyboard in Resources */,
 				D3E35FE21F7267D9004C4124 /* Assets.xcassets in Resources */,
 				D3E35FE01F7267D9004C4124 /* Main.storyboard in Resources */,
+				D301FDBF1F74AFE20039181A /* SSECell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -373,12 +390,9 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-HMEventSourceManagerTests/Pods-HMEventSourceManagerTests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
-				"${BUILT_PRODUCTS_DIR}/HMRequestFramework/HMRequestFramework.framework",
 				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/ReachabilitySwift.framework",
 				"${BUILT_PRODUCTS_DIR}/RxBlocking/RxBlocking.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
-				"${BUILT_PRODUCTS_DIR}/RxDataSources/RxDataSources.framework",
 				"${BUILT_PRODUCTS_DIR}/RxReachability/RxReachability.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftUtilities/SwiftUtilities.framework",
@@ -387,12 +401,9 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HMRequestFramework.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReachabilitySwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxBlocking.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxDataSources.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxReachability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftUtilities.framework",
@@ -444,27 +455,23 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-HMEventSourceManager-Demo/Pods-HMEventSourceManager-Demo-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
-				"${BUILT_PRODUCTS_DIR}/HMRequestFramework/HMRequestFramework.framework",
 				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/ReachabilitySwift.framework",
 				"${BUILT_PRODUCTS_DIR}/RxBlocking/RxBlocking.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
-				"${BUILT_PRODUCTS_DIR}/RxDataSources/RxDataSources.framework",
 				"${BUILT_PRODUCTS_DIR}/RxReachability/RxReachability.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftUtilities/SwiftUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftUIUtilities/SwiftUIUtilities.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HMRequestFramework.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReachabilitySwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxBlocking.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxDataSources.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxReachability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftUIUtilities.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -529,12 +536,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3BC983D1F73834D0038A988 /* HMEventSourceManager+Rx.swift in Sources */,
+				D3BC983D1F73834D0038A988 /* HMSSEManager+Rx.swift in Sources */,
 				D384B9A41F7408D900999116 /* HMSSEvent.swift in Sources */,
-				D3FD13A81F73FDD1006AAD54 /* HMEventSourceManagerType.swift in Sources */,
+				D3FD13A81F73FDD1006AAD54 /* HMSSEManagerType.swift in Sources */,
 				D3B063A41F743E4B00A01B98 /* HMSSEvents.swift in Sources */,
-				D3E35FCB1F724E4C004C4124 /* HMEventSourceManager.swift in Sources */,
+				D3E35FCB1F724E4C004C4124 /* HMSSEManager.swift in Sources */,
 				D384B9A61F741DC400999116 /* HMSSEData.swift in Sources */,
+				D301FDC11F74B4D20039181A /* HMSSERequest.swift in Sources */,
 				D30222031F73616100DF36D7 /* HMURLSessionSSEDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -543,6 +551,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D340747A1F74C78400E0F79D /* SaveLastEventIDTest.swift in Sources */,
+				D340747C1F74CEA200E0F79D /* TestUtil.swift in Sources */,
 				D3FD13AE1F7405AD006AAD54 /* RetryOnConnectivityTest.swift in Sources */,
 				D3E35FCE1F7250DC004C4124 /* ReachabilityAwareTest.swift in Sources */,
 				D3FD13AC1F74053D006AAD54 /* RootSSETest.swift in Sources */,

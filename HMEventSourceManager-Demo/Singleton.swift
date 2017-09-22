@@ -8,7 +8,6 @@
 
 import Foundation
 import HMEventSourceManager
-import HMRequestFramework
 import ReachabilitySwift
 import RxSwift
 
@@ -25,10 +24,10 @@ public struct Singleton {
         }
     }
     
-    public let sseManager: HMEventSourceManager
+    public let sseManager: HMSSEManager
     
     init() {
-        sseManager = HMEventSourceManager.builder()
+        sseManager = HMSSEManager.builder()
             .with(networkChecker: Reachability())
             .with(userDefaults: UserDefaults.standard)
             .build()

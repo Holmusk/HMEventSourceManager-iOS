@@ -10,10 +10,10 @@ import RxSwift
 import SwiftUtilities
 @testable import HMEventSourceManager
 
-public final class HMMockEventSourceManager: HMEventSourceManagerType {
-    public let manager: HMEventSourceManager
+public final class HMMockEventSourceManager: HMSSEManagerType {
+    public let manager: HMSSEManager
     
-    public init(_ manager: HMEventSourceManager) {
+    public init(_ manager: HMSSEManager) {
         self.manager = manager
     }
     
@@ -27,6 +27,14 @@ public final class HMMockEventSourceManager: HMEventSourceManagerType {
     
     public func triggerReachable() -> AnyObserver<Bool> {
         return manager.triggerReachable()
+    }
+    
+    public func lastEventIdForKey(_ key: String) -> String? {
+        return manager.lastEventIdForKey(key)
+    }
+    
+    public func storeLastEventIdWithKey(_ key: String, _ value: String) {
+        return manager.storeLastEventIdWithKey(key, value)
     }
     
     public func didReceiveData<O>(_ task: URLSessionDataTask,
@@ -53,7 +61,7 @@ public final class HMMockEventSourceManager: HMEventSourceManagerType {
         manager.didCompleteWithError(task, error, obs)
     }
     
-    public func openConnection<O>(_ request: HMEventSourceManagerType.Request,
+    public func openConnection<O>(_ request: HMSSEManagerType.Request,
                                   _ obs: O) -> Disposable where
         O: ObserverType, O.E == HMSSEvent<Data>
     {

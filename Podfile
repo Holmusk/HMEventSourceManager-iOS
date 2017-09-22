@@ -2,7 +2,6 @@
 # platform :ios, '9.0'
 
 def allPods
-    pod 'HMRequestFramework/Main', :git => 'https://github.com/Holmusk/HMRequestFramework-iOS.git'
     pod 'SwiftUtilities/Main', :git => 'https://github.com/protoman92/SwiftUtilities.git'
     pod 'ReachabilitySwift'
     pod 'RxReachability'
@@ -26,6 +25,7 @@ target 'HMEventSourceManager' do
       inherit! :search_paths
       # Pods for testing
       allPods
+      pod 'SwiftUIUtilities/Main', :git => 'https://github.com/protoman92/SwiftUIUtilities.git'
   end
 
 end

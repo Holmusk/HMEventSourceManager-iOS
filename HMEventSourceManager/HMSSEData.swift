@@ -6,6 +6,8 @@
 //  Copyright © 2017 Holmusk. All rights reserved.
 //
 
+import SwiftUtilities
+
 /// Use this to represent SSE data.
 public struct HMSSEData {
     public let id: String?

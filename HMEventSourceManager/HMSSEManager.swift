@@ -1,19 +1,18 @@
 //
-//  HMEventSourceManager.swift
+//  HMSSEManager.swift
 //  HMEventSourceManager
 //
 //  Created by Hai Pham on 20/9/17.
 //  Copyright © 2017 Holmusk. All rights reserved.
 //
 
-import HMRequestFramework
 import ReachabilitySwift
 import RxReachability
 import RxSwift
 import SwiftUtilities
 
 /// Use this class to handle SSE events.
-public struct HMEventSourceManager {
+public struct HMSSEManager {
     fileprivate let disposeBag: DisposeBag
     fileprivate var nwChecker: Reachability?
     fileprivate var userDefs: UserDefaults?
@@ -69,7 +68,7 @@ public struct HMEventSourceManager {
     }
 }
 
-extension HMEventSourceManager: BuildableType {
+extension HMSSEManager: BuildableType {
     public static func builder() -> Builder {
         return Builder()
     }
@@ -103,8 +102,8 @@ extension HMEventSourceManager: BuildableType {
     }
 }
 
-extension HMEventSourceManager.Builder: BuilderType {
-    public typealias Buildable = HMEventSourceManager
+extension HMSSEManager.Builder: BuilderType {
+    public typealias Buildable = HMSSEManager
     
     @discardableResult
     public func with(buildable: Buildable?) -> Self {

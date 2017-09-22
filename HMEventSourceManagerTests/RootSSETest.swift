@@ -15,23 +15,33 @@ import XCTest
 @testable import HMEventSourceManager
 
 public class RootSSETest: XCTestCase {
-    public typealias Event = HMSSEvent
-    public typealias Result = HMEventSourceManagerType.Result
+    public typealias Request = HMSSEManager.Request
+    public typealias Event = HMSSEManager.Event
+    public typealias Result = HMSSEManager.Result
     public var scheduler: TestScheduler!
     public var disposeBag: DisposeBag!
+    public var userDefaults: UserDefaults!
     public var timeout: TimeInterval!
     
+    public let suiteName = "com.holmusk.HMEventSourceManager"
+     
     override public func setUp() {
         super.setUp()
         scheduler = TestScheduler(initialClock: 0)
         disposeBag = DisposeBag()
+        userDefaults = UserDefaults(suiteName: suiteName)
         timeout = 10
     }
     
+    override public func tearDown() {
+        super.tearDown()
+        userDefaults.removeSuite(named: suiteName)
+    }
+    
     public func newSSEManager() -> HMMockEventSourceManager {
-        let sseManager = HMEventSourceManager.builder()
+        let sseManager = HMSSEManager.builder()
             .with(networkChecker: Reachability())
-            .with(userDefaults: UserDefaults.standard)
+            .with(userDefaults: userDefaults)
             .build()
         
         return HMMockEventSourceManager(sseManager)

@@ -1,5 +1,5 @@
 //
-//  HMEventSourceManager+Rx.swift
+//  HMSSEManager+Rx.swift
 //  HMEventSourceManager
 //
 //  Created by Hai Pham on 21/9/17.
@@ -10,13 +10,21 @@ import RxSwift
 import RxReachability
 import SwiftUtilities
 
-extension HMEventSourceManager: HMEventSourceManagerType {
+extension HMSSEManager: HMSSEManagerType {
     public func isReachableStream() -> Observable<Bool> {
         return self.isReachable.distinctUntilChanged()
     }
     
     public func triggerReachable() -> AnyObserver<Bool> {
         return self.isReachable.asObserver()
+    }
+    
+    public func lastEventIdForKey(_ key: String) -> String? {
+        return userDefaults().string(forKey: key)
+    }
+    
+    public func storeLastEventIdWithKey(_ key: String, _ value: String) {
+        userDefaults().set(value, forKey: key)
     }
     
     /// DidReceiveData callback.
@@ -62,7 +70,7 @@ extension HMEventSourceManager: HMEventSourceManagerType {
         let queue = OperationQueue()
         
         do {
-            let urlRequest = try newRequest.urlRequest()
+            let url = try newRequest.url()
             
             let delegate = HMURLSessionSSEDelegate.builder()
                 .with(didReceiveResponse: {self.didReceiveResponse($0.0, $0.1, obs)})
@@ -74,7 +82,7 @@ extension HMEventSourceManager: HMEventSourceManagerType {
                                         delegate: delegate,
                                         delegateQueue: queue)
             
-            let task = urlSession.dataTask(with: urlRequest)
+            let task = urlSession.dataTask(with: url)
             
             task.resume()
             

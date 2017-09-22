@@ -1,18 +1,17 @@
 //
-//  HMEventSourceManagerType.swift
+//  HMSSEManagerType.swift
 //  HMEventSourceManager
 //
 //  Created by Hai Pham on 21/9/17.
 //  Copyright © 2017 Holmusk. All rights reserved.
 //
 
-import HMRequestFramework
 import RxSwift
 import SwiftUtilities
 
 /// Classes that implement this protocol must be able to handle SSE events.
-public protocol HMEventSourceManagerType: ReactiveCompatible {
-    typealias Request = HMNetworkRequest
+public protocol HMSSEManagerType: ReactiveCompatible {
+    typealias Request = HMSSERequest
     typealias Result = HMSSEData
     typealias Event = HMSSEvent
     
@@ -22,23 +21,29 @@ public protocol HMEventSourceManagerType: ReactiveCompatible {
     
     func triggerReachable() -> AnyObserver<Bool>
     
+    /// Get the last event ID in local storage.
+    func lastEventIdForKey(_ key: String) -> String?
+
+    /// Store the last event ID in local storage.
+    func storeLastEventIdWithKey(_ key: String, _ value: String)
+    
     /// DidReceiveData callback.
     func didReceiveData<O>(_ task: URLSessionDataTask,
                            _ data: Data,
                            _ obs: O) where
-        O: ObserverType, O.E == HMSSEvent<Data>
+        O: ObserverType, O.E == Event<Data>
     
     /// DidReceiveResponse callback.
     func didReceiveResponse<E,O>(_ task: URLSessionDataTask,
                                  _ response: URLResponse,
                                  _ obs: O) where
-        O: ObserverType, O.E == HMSSEvent<E>
+        O: ObserverType, O.E == Event<E>
     
     /// DidCompleteWithError callback.
     func didCompleteWithError<O>(_ task: URLSessionTask,
                                  _ error: Error?,
                                  _ obs: O) where
-        O: ObserverType, O.E == HMSSEvent<Data>
+        O: ObserverType, O.E == Event<Data>
     
     /// Open a SSE connection.
     ///
@@ -47,10 +52,67 @@ public protocol HMEventSourceManagerType: ReactiveCompatible {
     ///   - obs: An ObserverType instance.
     /// - Returns: A Disposable instance.
     func openConnection<O>(_ request: Request, _ obs: O) -> Disposable where
-        O: ObserverType, O.E == HMSSEvent<Data>
+        O: ObserverType, O.E == Event<Data>
 }
 
-public extension HMEventSourceManagerType {
+public extension HMSSEManagerType {
+    
+    /// Get a unique URL identifier to access last event id in local storage.
+    ///
+    /// - Parameter url: A URL instance.
+    /// - Returns: A String value.
+    func uniqueURLIdentifier(_ url: URL) -> String {
+        let host = url.host ?? ""
+        let scheme = url.scheme ?? ""
+        let port = url.port ?? 0
+        let relativePath = url.relativePath
+        return "\(scheme).\(host).\(port).\(relativePath)"
+    }
+    
+    /// Get a unique last event id key that corresponds to a URL.
+    ///
+    /// - Parameter url: A URL instance.
+    /// - Returns: A String value.
+    func lastEventIdKey(_ url: URL) -> String {
+        return "com.holmusk.HMEventSourceManager.\(uniqueURLIdentifier(url))"
+    }
+    
+    /// Get the last event ID key for a request.
+    ///
+    /// - Parameter request: A Request instance.
+    /// - Returns: A String value.
+    func lastEventIdKey(_ request: Request) -> String {
+        do {
+            let url = try request.url()
+            return self.lastEventIdKey(url)
+        } catch let error {
+            debugException(error.localizedDescription)
+            return ""
+        }
+    }
+    
+    /// Get the last event ID for a request.
+    ///
+    /// - Parameter request: A Request instance.
+    /// - Returns: A String value.
+    func lastEventId(_ request: Request) -> String? {
+        let lastEventIdKey = self.lastEventIdKey(request)
+        return lastEventIdForKey(lastEventIdKey)
+    }
+    
+    /// /// Store the last event ID in local storage.
+    ///
+    /// - Parameters:
+    ///   - request: A Request instance.
+    ///   - events: A Sequence of Event.
+    func storeLastEventId<S>(_ request: Request, _ events: S) where
+        S: Sequence, S.Iterator.Element == Event<Result>
+    {
+        if let id = HMSSEvents.values(events).flatMap({$0.id}).last {
+            let lastEventIdKey = self.lastEventIdKey(request)
+            storeLastEventIdWithKey(lastEventIdKey, id)
+        }
+    }
     
     /// Get a cloned request with some default parameters.
     ///
@@ -58,9 +120,9 @@ public extension HMEventSourceManagerType {
     /// - Returns: A Request instance.
     func requestWithDefaultParams(_ request: Request) -> Request {
         return request.cloneBuilder()
-            .with(operation: .get)
             .add(header: "text/event-stream", forKey: "Accept")
             .add(header: "no-cache", forKey: "Cache-Control")
+            .add(header: lastEventId(request), forKey: "Last-Event-Id")
             .build()
     }
     
@@ -74,12 +136,12 @@ public extension HMEventSourceManagerType {
         // Note: Do not use Int.max here as it is an invalid timeout interval.
         config.timeoutIntervalForRequest = TimeInterval(INT_MAX)
         config.timeoutIntervalForResource = TimeInterval(INT_MAX)
-        config.httpAdditionalHeaders = request.headers()
+        config.httpAdditionalHeaders = request.additionalHeaders()
         return config
     }
 }
 
-public extension HMEventSourceManagerType {
+public extension HMSSEManagerType {
     
     /// Extract events from some data.
     ///
@@ -137,10 +199,10 @@ public extension HMEventSourceManagerType {
         return nil
     }
     
-    /// Parse some events into the appropriate HMSSEvent.
+    /// Parse some events into the appropriate Event.
     ///
     /// - Parameter events: A String Array.
-    /// - Returns: A HMSSEvent Array.
+    /// - Returns: A Event Array.
     fileprivate func parseEventStream(_ events: [String]) -> [Event<Result>] {
         var parsedEvents: [Event<Result>] = []
         
@@ -163,7 +225,7 @@ public extension HMEventSourceManagerType {
     /// for it beforehand.
     ///
     /// - Parameter data: A Data instance.
-    /// - Returns: A HMSSEvent Array.
+    /// - Returns: A Event Array.
     fileprivate func parseEventStream(_ data: Data) -> [Event<Result>] {
         return parseEventStream(extractEvents(data))
     }
@@ -172,7 +234,7 @@ public extension HMEventSourceManagerType {
     /// the id, event and data.
     ///
     /// - Parameter eventString: A String value.
-    /// - Returns: A HMSSEvent instance.
+    /// - Returns: A Event instance.
     fileprivate func parseEvent(_ eventString: String) -> Event<Result> {
         var event: [String : String] = [:]
         
@@ -196,7 +258,7 @@ public extension HMEventSourceManagerType {
                              event: event["event"],
                              data: event["data"])
         
-        return HMSSEvent.dataReceived(data)
+        return Event.dataReceived(data)
     }
     
     fileprivate func parseKeyValuePair(_ line: String) -> (NSString?, NSString?) {
@@ -216,21 +278,20 @@ public extension HMEventSourceManagerType {
     }
     
     fileprivate func parseRetryTime(_ eventString: String) -> Event<Result> {
-        let separators = CharacterSet(charactersIn: ":")
+//        let separators = CharacterSet(charactersIn: ":")
+//
+//        if let milli = eventString.components(separatedBy: separators).last {
+//            let milliseconds = milli.trimmingCharacters(in: CharacterSet.whitespaces)
+//        }
         
-        if let milli = eventString.components(separatedBy: separators).last {
-            let milliseconds = milli.trimmingCharacters(in: CharacterSet.whitespaces)
-            print(milliseconds)
-        }
-        
-        return HMSSEvent.dummy
+        return Event.dummy
     }
 }
 
-public extension Reactive where Base: HMEventSourceManagerType {
-    public typealias Request = HMEventSourceManager.Request
-    typealias Result = HMEventSourceManager.Result
-    typealias Event = HMEventSourceManager.Event
+public extension Reactive where Base: HMSSEManagerType {
+    public typealias Request = HMSSEManager.Request
+    typealias Result = HMSSEManager.Result
+    typealias Event = HMSSEManager.Event
     
     /// We need a separate isReachable Observable because reachability.rx
     /// does not relay that last event.
@@ -249,6 +310,9 @@ public extension Reactive where Base: HMEventSourceManagerType {
     public var triggerReachable: AnyObserver<Bool> {
         return base.triggerReachable()
     }
+}
+
+public extension Reactive where Base: HMSSEManagerType {
     
     /// Open a new SSE connection that listens to connectivity changes and
     /// terminates when connectivity is not available.
@@ -259,10 +323,9 @@ public extension Reactive where Base: HMEventSourceManagerType {
     /// - Returns: An Observable instance.
     func reachabilityAwareSSE<SO>(_ request: Request, _ sseObs: SO)
         -> Observable<[Event<Result>]> where
-        SO: ObservableConvertibleType, SO.E == HMSSEvent<Data>
+        SO: ObservableConvertibleType, SO.E == Event<Data>
     {
-        let newRequest = base.requestWithDefaultParams(request)
-        let delay = newRequest.retryDelay()
+        let delay = request.retryDelay()
         let retryScheduler = ConcurrentDispatchQueueScheduler(qos: .background)
         
         return sseObs.asObservable()
@@ -279,26 +342,65 @@ public extension Reactive where Base: HMEventSourceManagerType {
             .observeOn(qos: .background)
     }
     
+    /// Open a new SSE connection that listens to connectivity changes.
+    ///
+    /// - Parameter request: A Request instance.
+    /// - Returns: An Observable instance.
+    func reachabilityAwareSSE(_ request: Request) -> Observable<[Event<Result>]> {
+        let sseObs = Observable.create({self.base.openConnection(request, $0)})
+        return reachabilityAwareSSE(request, sseObs)
+    }
+}
+
+public extension Reactive where Base: HMSSEManagerType {
+    
     /// Open a new SSE connection only when there is internet connectivity.
     ///
     /// - Parameters:
     ///   - request: A Request instance.
-    ///   - sseObs: A SSE connection creator Observable.
+    ///   - sseFn: A SSE connection creator Function.
     /// - Returns: An Observable instance.
-    func retryOnConnectivitySSE<SO>(_ request: Request, _ sseObs: SO)
+    func retryOnConnectivitySSE<SO>(_ request: Request,
+                                    _ sseFn: @escaping (Request) -> SO)
         -> Observable<[Event<Result>]> where
-        SO: ObservableConvertibleType, SO.E == HMSSEvent<Data>
+        SO: ObservableConvertibleType, SO.E == [Event<Result>]
     {
-        let connectionObs = reachabilityAwareSSE(request, sseObs)
-        return self.isConnected.flatMapLatest({connectionObs})
+        return self.isConnected
+            
+            // We need this update to keep last event id updated.
+            .map({self.base.requestWithDefaultParams(request)})
+            .flatMapLatest(sseFn)
+    }
+}
+
+public extension Reactive where Base: HMSSEManagerType {
+    
+    /// Open a SSE connection and saves the last event ID every time a new
+    /// batch of events arrives.
+    ///
+    /// - Parameters:
+    ///   - request: A Request instance.
+    ///   - sseFn: A SSE connection creator Function.
+    /// - Returns: An Observable instance.
+    func openConnection<SO>(_ request: Request,
+                            _ sseFn: @escaping (Request) -> SO)
+        -> Observable<[Event<Result>]> where
+        SO: ObservableConvertibleType, SO.E == [Event<Result>]
+    {
+        return retryOnConnectivitySSE(request, sseFn)
+            
+            // A bit of side effect here to store last event ID. We don't need
+            // the updated request object here because we are simply taking the
+            // URL.
+            .doOnNext({self.base.storeLastEventId(request, $0)})
     }
     
-    /// Open a new SSE connection only when there is internet connectivity.
+    /// Master method to open a SSE connection. Simply provide a request object
+    /// and subscribe to this stream to receive updates.
     ///
-    /// - Parameters request: A Request instance.
+    /// - Parameter request: A Request instance.
     /// - Returns: An Observable instance.
-    func retryOnConnectivitySSE(_ request: Request) -> Observable<[Event<Result>]> {
-        let sseObs = Observable.create({self.base.openConnection(request, $0)})
-        return retryOnConnectivitySSE(request, sseObs)
+    public func openConnection(_ request: Request) -> Observable<[Event<Result>]> {
+        return openConnection(request, reachabilityAwareSSE)
     }
 }

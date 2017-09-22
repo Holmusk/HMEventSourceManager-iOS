@@ -1,7 +1,7 @@
 var http = require('http');
 var uuid = require('node-uuid');
 
-var sendInterval = 3000;
+var sendInterval = 2000;
 
 var userNames = ["John", "Monica", "Martin", "Rose", "James", "Tom"];
 var randomMessages = ["I'm fine", "I'll meet you in 10 minutes", "I'll call you back later", "I'm busy"];
