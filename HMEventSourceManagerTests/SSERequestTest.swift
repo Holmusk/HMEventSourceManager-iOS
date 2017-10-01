@@ -36,6 +36,7 @@ public final class SSERequestTest: RootSSETest {
         sseManager.rx.triggerReachable.onNext(false)
         
         sseManager.rx.openConnection(request, sseFn)
+            .observeOnMain()
             .subscribe(observer)
             .disposed(by: disposeBag)
         

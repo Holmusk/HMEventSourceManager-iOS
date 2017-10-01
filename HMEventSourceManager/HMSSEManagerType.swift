@@ -345,8 +345,6 @@ public extension Reactive where Base: HMSSEManagerType {
                 }
             })
             .takeUntil(self.isDisconnected)
-            .subscribeOn(qos: .background)
-            .observeOn(qos: .background)
     }
     
     /// Open a new SSE connection that listens to connectivity changes.
@@ -376,7 +374,7 @@ public extension Reactive where Base: HMSSEManagerType {
             
             // We need this update to keep last event id updated.
             .map({self.base.requestWithDefaultParams(request)})
-            .flatMapLatest(sseFn)
+            .flatMapLatest({sseFn($0)})
     }
 }
 
@@ -409,5 +407,7 @@ public extension Reactive where Base: HMSSEManagerType {
     /// - Returns: An Observable instance.
     public func openConnection(_ request: Request) -> Observable<[Event<Result>]> {
         return openConnection(request, reachabilityAwareSSE)
+            .subscribeOn(qos: .background)
+            .observeOn(qos: .background)
     }
 }

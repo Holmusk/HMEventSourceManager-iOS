@@ -17,15 +17,23 @@ public final class HMURLSessionSSEDelegate: NSObject {
     fileprivate var didReceiveData: DidReceiveData?
     fileprivate var didReceiveResponse: DidReceiveResponse?
     fileprivate var didCompleteWithError: DidCompleteWithError?
+    fileprivate let operation: OperationQueue
     
     deinit {
         debugPrint("Deinit \(self)")
     }
     
     public func removeCallbacks() {
+        operation.cancelAllOperations()
         didReceiveData = nil
         didReceiveResponse = nil
         didCompleteWithError = nil
+    }
+    
+    fileprivate override init() {
+        let operation = OperationQueue()
+        operation.underlyingQueue = DispatchQueue.global(qos: .background)
+        self.operation = operation
     }
 }
 
@@ -97,22 +105,26 @@ extension HMURLSessionSSEDelegate: URLSessionDataDelegate {
     public func urlSession(_ session: URLSession,
                            dataTask: URLSessionDataTask,
                            didReceive data: Data) {
-        mainThread({self.didReceiveData?(dataTask, data)})
+        operation.addOperation({[weak self] in
+            self?.didReceiveData?(dataTask, data)
+        })
     }
     
     public func urlSession(_ session: URLSession,
                            dataTask: URLSessionDataTask,
                            didReceive response: URLResponse,
                            completionHandler: @escaping (ResponseDisposition) -> Void) {
-        mainThread({
+        operation.addOperation({[weak self] in
             completionHandler(.allow)
-            self.didReceiveResponse?(dataTask, response)
+            self?.didReceiveResponse?(dataTask, response)
         })
     }
     
     public func urlSession(_ session: URLSession,
                            task: URLSessionTask,
                            didCompleteWithError error: Error?) {
-        mainThread({self.didCompleteWithError?(task, error)})
+        operation.addOperation({[weak self] in
+            self?.didCompleteWithError?(task, error)
+        })
     }
 }

@@ -58,7 +58,7 @@ public struct HMSSEManager {
         
         networkChecker.rx.isReachable
             .distinctUntilChanged()
-            .observeOn(MainScheduler.instance)
+            .observeOnMain()
             .bind(to: isReachable)
             .disposed(by: disposeBag)
     }

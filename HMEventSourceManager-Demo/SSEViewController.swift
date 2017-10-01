@@ -51,9 +51,10 @@ public final class SSEViewController: UIViewController {
         self.sseManager = sseManager
         
         sseManager.rx.openConnection(request)
+            .logCheckMainThread()
             .map(HMSSEvents.eventData)
             .throttle(1, scheduler: MainScheduler.instance)
-            .observeOn(MainScheduler.instance)
+            .observeOnMain()
             .doOnNext({[weak self] in self?.dataSource.append(contentsOf: $0)})
             .doOnNext({[weak tableView] _ in tableView?.reloadData()})
             .subscribe()

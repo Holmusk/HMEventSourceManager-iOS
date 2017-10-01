@@ -1,5 +1,7 @@
 # Created by https://www.gitignore.io/api/xcode
 
+node_modules
+
 ### Xcode ###
 # Xcode
 #
@@ -37,5 +39,3 @@ Pods
 .DS_Store
 
 # End of https://www.gitignore.io/api/xcode
-
-node_modules

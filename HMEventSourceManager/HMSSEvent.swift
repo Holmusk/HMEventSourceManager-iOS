@@ -109,3 +109,13 @@ public enum HMSSEvent<T> {
         }
     }
 }
+
+extension HMSSEvent: CustomStringConvertible {
+    public var description: String {
+        switch self {
+        case .connectionOpened: return "connectionOpened"
+        case .dataReceived: return "dataReceived"
+        case .dummy: return "dummy"
+        }
+    }
+}

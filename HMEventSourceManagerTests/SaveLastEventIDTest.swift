@@ -31,12 +31,13 @@ public final class SaveLastEventIDTest: RootSSETest {
         var lastEventId: String?
         
         let sseFn: (Request) -> Observable<[Event<Result>]> = {_ in
-            return dataSubject
+            return dataSubject.asObservable()
         }
         
         sseManager.rx.triggerReachable.onNext(false)
         
         sseManager.rx.openConnection(request, sseFn)
+            .observeOnMain()
             .subscribe(observer)
             .disposed(by: disposeBag)
         

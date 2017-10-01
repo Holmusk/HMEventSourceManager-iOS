@@ -41,6 +41,8 @@ public final class RetryOnConnectivityTest: RootSSETest {
         
         let sseFn: (Request) -> Observable<[Event<Result>]> = {
             sseManager.rx.reachabilityAwareSSE($0, connectionObs)
+                .subscribeOn(qos: .background)
+                .observeOn(qos: .background)
         }
         
         let waitTime: TimeInterval = 2
@@ -48,7 +50,6 @@ public final class RetryOnConnectivityTest: RootSSETest {
         
         sseManager.rx.retryOnConnectivitySSE(request, sseFn)
             .takeUntil(terminateSbj)
-            .observeOn(MainScheduler.instance)
             .doOnDispose(expect.fulfill)
             .subscribe(observer)
             .disposed(by: disposeBag)
@@ -56,19 +57,17 @@ public final class RetryOnConnectivityTest: RootSSETest {
         /// When
         let terminateTime = DispatchTime.now() + waitTime
         
-        DispatchQueue.main.asyncAfter(deadline: terminateTime, execute: {
-            mainThread({
-                for _ in 0..<restartTimes {
-                    // When reachable is false, old stream is terminated.
-                    sseManager.rx.triggerReachable.onNext(false)
-                    
-                    // When reachable is true, a new stream is started.
-                    sseManager.rx.triggerReachable.onNext(true)
-                }
+        DispatchQueue.global(qos: .background).asyncAfter(deadline: terminateTime, execute: {
+            for _ in 0..<restartTimes {
+                // When reachable is false, old stream is terminated.
+                sseManager.rx.triggerReachable.onNext(false)
                 
-                // When this calls onNext, the stream will be terminated.
-                terminateSbj.onNext(())
-            })
+                // When reachable is true, a new stream is started.
+                sseManager.rx.triggerReachable.onNext(true)
+            }
+            
+            // When this calls onNext, the stream will be terminated.
+            terminateSbj.onNext(())
         })
         
         waitForExpectations(timeout: timeout, handler: nil)

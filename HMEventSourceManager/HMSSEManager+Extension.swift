@@ -33,7 +33,12 @@ extension HMSSEManager: HMSSEManagerType {
                                   _ obs: O) where
         O: ObserverType, O.E == HMSSEvent<Data>
     {
-        obs.onNext(HMSSEvent.dataReceived(data))
+        // When the connection is first opened, there might be a dummy event
+        // with 1 byte that we can ignore so as not to push two concurrent
+        // events onto the observer.
+        if data.count > 1 {
+            obs.onNext(HMSSEvent.dataReceived(data))
+        }
     }
     
     /// DidReceiveResponse callback.
