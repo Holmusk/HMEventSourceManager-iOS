@@ -21,6 +21,10 @@ public final class HMMockEventSourceManager: HMSSEManagerType {
         return manager.newlineCharacters
     }
     
+    public var qualityOfService: DispatchQoS.QoSClass {
+        return manager.qualityOfService
+    }
+    
     public func isReachableStream() -> Observable<Bool> {
         return manager.isReachableStream()
     }

@@ -16,12 +16,17 @@ public struct HMSSEManager {
     fileprivate let disposeBag: DisposeBag
     fileprivate var nwChecker: Reachability?
     fileprivate var userDefs: UserDefaults?
+    fileprivate var defaultQoS: DispatchQoS.QoSClass?
     
     // Since reachability.rx does not relay that last event, we need to store
     // it somewhere for easy access when opening a new SSE connection.
     let isReachable: BehaviorSubject<Bool>
     
     public let newlineCharacters: [String]
+    
+    public var qualityOfService: DispatchQoS.QoSClass {
+        return defaultQoS ?? .background
+    }
     
     fileprivate init() {
         disposeBag = DisposeBag()
@@ -95,8 +100,18 @@ extension HMSSEManager: BuildableType {
         /// - Parameter userDefaults: A UserDefaults instance.
         /// - Returns: The current Builder instance.
         @discardableResult
-        public func with(userDefaults: UserDefaults) -> Self {
+        public func with(userDefaults: UserDefaults?) -> Self {
             manager.userDefs = userDefaults
+            return self
+        }
+        
+        /// Set the default QoS to push events with.
+        ///
+        /// - Parameter defaultQoS: A QoSClass instance.
+        /// - Returns: The current Builder instance.
+        @discardableResult
+        public func with(defaultQoS: DispatchQoS.QoSClass?) -> Self {
+            manager.defaultQoS = defaultQoS
             return self
         }
     }
@@ -109,8 +124,9 @@ extension HMSSEManager.Builder: BuilderType {
     public func with(buildable: Buildable?) -> Self {
         if let buildable = buildable {
             return self
-                .with(networkChecker: buildable.networkChecker())
-                .with(userDefaults: buildable.userDefaults())
+                .with(networkChecker: buildable.nwChecker)
+                .with(userDefaults: buildable.userDefs)
+                .with(defaultQoS: buildable.defaultQoS)
         } else {
             return self
         }
