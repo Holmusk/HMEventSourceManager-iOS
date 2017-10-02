@@ -155,6 +155,7 @@ public extension HMSSEManagerType {
     /// - Parameter data: A Data instance.
     /// - Returns: An Array of String.
     fileprivate func extractEvents(_ data: Data) -> [String] {
+        Preconditions.checkNotRunningOnMainThread(nil)
         var events = [String]()
         let encoding = String.Encoding.utf8.rawValue
         
@@ -191,6 +192,7 @@ public extension HMSSEManagerType {
                                            _ searchRange: Range<Data.Index>)
         -> Range<Data.Index>?
     {
+        Preconditions.checkNotRunningOnMainThread(nil)
         let newlineCharacters = self.newlineCharacters
         let encoding = String.Encoding.utf8
         let delimiters = newlineCharacters.flatMap({"\($0)\($0)".data(using: encoding)})
@@ -211,6 +213,7 @@ public extension HMSSEManagerType {
     /// - Parameter events: A String Array.
     /// - Returns: A Event Array.
     fileprivate func parseEventStream(_ events: [String]) -> [Event<Result>] {
+        Preconditions.checkNotRunningOnMainThread(nil)
         var parsedEvents: [Event<Result>] = []
         
         for event in events {
@@ -234,6 +237,7 @@ public extension HMSSEManagerType {
     /// - Parameter data: A Data instance.
     /// - Returns: A Event Array.
     fileprivate func parseEventStream(_ data: Data) -> [Event<Result>] {
+        Preconditions.checkNotRunningOnMainThread(nil)
         return parseEventStream(extractEvents(data))
     }
     
@@ -243,6 +247,8 @@ public extension HMSSEManagerType {
     /// - Parameter eventString: A String value.
     /// - Returns: A Event instance.
     fileprivate func parseEvent(_ eventString: String) -> Event<Result> {
+        Preconditions.checkNotRunningOnMainThread(nil)
+        
         var event: [String : String] = [:]
         
         for line in eventString.components(separatedBy: CharacterSet.newlines) {
@@ -269,6 +275,7 @@ public extension HMSSEManagerType {
     }
     
     fileprivate func parseKeyValuePair(_ line: String) -> (NSString?, NSString?) {
+        Preconditions.checkNotRunningOnMainThread(nil)
         var key: NSString?, value: NSString?
         let newlineCharacters = self.newlineCharacters
         let scanner = Scanner(string: line)

@@ -33,6 +33,8 @@ extension HMSSEManager: HMSSEManagerType {
                                   _ obs: O) where
         O: ObserverType, O.E == HMSSEvent<Data>
     {
+        Preconditions.checkNotRunningOnMainThread(nil)
+        
         // When the connection is first opened, there might be a dummy event
         // with 1 byte that we can ignore so as not to push two concurrent
         // events onto the observer.
@@ -47,6 +49,7 @@ extension HMSSEManager: HMSSEManagerType {
                                         _ obs: O) where
         O: ObserverType, O.E == HMSSEvent<E>
     {
+        Preconditions.checkNotRunningOnMainThread(nil)
         obs.onNext(HMSSEvent<E>.connectionOpened)
     }
     
@@ -56,6 +59,8 @@ extension HMSSEManager: HMSSEManagerType {
                                         _ obs: O) where
         O: ObserverType, O.E == HMSSEvent<Data>
     {
+        Preconditions.checkNotRunningOnMainThread(nil)
+        
         if let error = error as NSError?, error.code != 999 {
             obs.onError(error)
         } else if error == nil {
@@ -70,6 +75,7 @@ extension HMSSEManager: HMSSEManagerType {
     public func openConnection<O>(_ request: Request, _ obs: O) -> Disposable where
         O: ObserverType, O.E == HMSSEvent<Data>
     {
+        Preconditions.checkNotRunningOnMainThread(nil)
         let newRequest = requestWithDefaultParams(request)
         let config = urlSessionConfig(newRequest)
         let queue = OperationQueue()

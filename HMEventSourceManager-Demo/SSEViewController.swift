@@ -51,7 +51,6 @@ public final class SSEViewController: UIViewController {
         self.sseManager = sseManager
         
         sseManager.rx.openConnection(request)
-            .logCheckMainThread()
             .map(HMSSEvents.eventData)
             .throttle(1, scheduler: MainScheduler.instance)
             .observeOnMain()
