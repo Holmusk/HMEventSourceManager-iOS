@@ -41,8 +41,8 @@ public final class RetryOnConnectivityTest: RootSSETest {
         
         let sseFn: (Request) -> Observable<[Event<Result>]> = {
             sseManager.rx.reachabilityAwareSSE($0, connectionObs)
-                .subscribeOn(qos: .background)
-                .observeOn(qos: .background)
+                .subscribeOnConcurrent(qos: .background)
+                .observeOnConcurrent(qos: .background)
         }
         
         let waitTime: TimeInterval = 2

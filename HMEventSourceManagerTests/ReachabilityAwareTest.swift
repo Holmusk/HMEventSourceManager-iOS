@@ -39,8 +39,8 @@ public final class ReachabilityAwareTest: RootSSETest {
         var actualWait: TimeInterval = 0
         
         sseManager.rx.reachabilityAwareSSE(request, connectionObs)
-            .subscribeOn(qos: .background)
-            .observeOn(qos: .background)
+            .subscribeOnConcurrent(qos: .background)
+            .observeOnConcurrent(qos: .background)
             .doOnDispose({actualWait = Date().timeIntervalSince(currentDate)})
             .doOnDispose(expect.fulfill)
             .subscribe(observer)

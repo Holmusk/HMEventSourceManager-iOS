@@ -13,6 +13,7 @@ public struct HMSSERequest {
     fileprivate var retryDelayIntv: TimeInterval
     fileprivate var urlStr: String?
     fileprivate var headers: [String : Any]
+    fileprivate var sseDefaultQoS: DispatchQoS.QoSClass?
     
     fileprivate init() {
         retryDelayIntv = 0
@@ -33,6 +34,10 @@ public struct HMSSERequest {
     
     public func additionalHeaders() -> [String : Any] {
         return headers
+    }
+    
+    public func defaultQoS() -> DispatchQoS.QoSClass? {
+        return sseDefaultQoS
     }
 }
 
@@ -68,6 +73,12 @@ extension HMSSERequest: BuildableType {
         @discardableResult
         public func with(urlString: String?) -> Self {
             request.urlStr = urlString
+            return self
+        }
+        
+        @discardableResult
+        public func with(defaultQoS: DispatchQoS.QoSClass?) -> Self {
+            request.sseDefaultQoS = defaultQoS
             return self
         }
         
@@ -118,9 +129,10 @@ extension HMSSERequest.Builder: BuilderType {
     public func with(buildable: HMSSERequest?) -> Self {
         if let buildable = buildable {
             return self
-                .with(retryDelay: buildable.retryDelay())
-                .with(urlString: buildable.urlString())
-                .with(headers: buildable.additionalHeaders())
+                .with(retryDelay: buildable.retryDelayIntv)
+                .with(urlString: buildable.urlStr)
+                .with(headers: buildable.headers)
+                .with(defaultQoS: buildable.sseDefaultQoS)
         } else {
             return self
         }

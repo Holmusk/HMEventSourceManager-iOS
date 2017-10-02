@@ -17,8 +17,6 @@ public protocol HMSSEManagerType: ReactiveCompatible {
     
     var newlineCharacters: [String] { get }
     
-    var qualityOfService: DispatchQoS.QoSClass { get }
-    
     func isReachableStream() -> Observable<Bool>
     
     func triggerReachable() -> AnyObserver<Bool>
@@ -354,16 +352,12 @@ public extension Reactive where Base: HMSSEManagerType {
     /// - Parameter request: A Request instance.
     /// - Returns: An Observable instance.
     func reachabilityAwareSSE(_ request: Request) -> Observable<[Event<Result>]> {
-        let qosCls = base.qualityOfService
-        let qos = DispatchQoS(qosClass: qosCls, relativePriority: 0)
+        let qos = request.defaultQoS() ?? .background
         
         let sseObs = Observable
             .create({self.base.openConnection(request, $0)})
-            .subscribeOn(qos: qosCls)
-            
-            // We need a serial dispatch scheduler here to prevent concurrent
-            // events for the observer.
-            .observeOn(SerialDispatchQueueScheduler(qos: qos))
+            .subscribeOnConcurrent(qos: qos)
+            .observeOnConcurrent(qos: qos)
         
         return reachabilityAwareSSE(request, sseObs)
     }
@@ -418,10 +412,10 @@ public extension Reactive where Base: HMSSEManagerType {
     /// - Parameter request: A Request instance.
     /// - Returns: An Observable instance.
     public func openConnection(_ request: Request) -> Observable<[Event<Result>]> {
-        let qos = base.qualityOfService
+        let qos = request.defaultQoS() ?? .background
         
         return openConnection(request, reachabilityAwareSSE)
-            .subscribeOn(qos: qos)
-            .observeOn(qos: qos)
+            .subscribeOnConcurrent(qos: qos)
+            .observeOnConcurrent(qos: qos)
     }
 }
