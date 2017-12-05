@@ -302,40 +302,32 @@ public extension HMSSEManagerType {
     }
 }
 
-public extension Reactive where Base: HMSSEManagerType {
-    public typealias Request = HMSSEManager.Request
-    typealias Result = HMSSEManager.Result
-    typealias Event = HMSSEManager.Event
-    
-    /// We need a separate isReachable Observable because reachability.rx
-    /// does not relay that last event.
-    public var isReachable: Observable<Bool> {
-        return base.isReachableStream()
+public extension HMSSEManagerType {
+    fileprivate func isConnectedStream() -> Observable<Void> {
+        return isReachableStream().filter({$0}).map(toVoid)
     }
     
-    public var isConnected: Observable<Void> {
-        return isReachable.filter({$0}).map(toVoid)
-    }
-    
-    public var isDisconnected: Observable<Void> {
-        return isReachable.filter({!$0}).map(toVoid)
-    }
-    
-    public var triggerReachable: AnyObserver<Bool> {
-        return base.triggerReachable()
+    fileprivate func isDisconnectedStream() -> Observable<Void> {
+        return isReachableStream().filter({!$0}).map(toVoid)
     }
 }
 
-public extension Reactive where Base: HMSSEManagerType {
+public extension HMSSEManagerType {
+    fileprivate func sseObservable(_ request: Request) -> Observable<Event<Data>> {
+        let qos = request.defaultQoS() ?? .background
+        
+        return Observable
+            .create({self.openConnection(request, $0)})
+            .subscribeOnConcurrent(qos: qos)
+    }
     
-    /// Open a new SSE connection that listens to connectivity changes and
-    /// terminates when connectivity is not available.
+    /// Open a new SSE connection that retries infinitely.
     ///
     /// - Parameters:
     ///   - request: A Request instance.
     ///   - sseObs: A SSE connection creator Observable.
     /// - Returns: An Observable instance.
-    func reachabilityAwareSSE<SO>(_ request: Request, _ sseObs: SO)
+    public func retrySSE<SO>(_ request: Request, _ sseObs: SO)
         -> Observable<[Event<Result>]> where
         SO: ObservableConvertibleType, SO.E == Event<Data>
     {
@@ -346,31 +338,45 @@ public extension Reactive where Base: HMSSEManagerType {
             .delayRetry(delay: delay, scheduler: retryScheduler)
             .map({event -> [Event<Result>] in
                 if let value = event.value {
-                    return self.base.parseEventStream(value)
+                    return self.parseEventStream(value)
                 } else {
                     return [event.cast(to: HMSSEData.self)]
                 }
             })
-            .takeUntil(self.isDisconnected)
+    }
+    
+    /// Open a new SSE connection that retries infinitely.
+    ///
+    /// - Parameters request: A Request instance.
+    /// - Returns: An Observable instance.
+    public func retrySSE(_ request: Request) -> Observable<[Event<Result>]> {
+        return retrySSE(request, sseObservable(request))
+    }
+    
+    /// Open a new SSE connection that listens to connectivity changes and
+    /// terminates when connectivity is not available.
+    ///
+    /// - Parameters:
+    ///   - request: A Request instance.
+    ///   - sseObs: A SSE connection creator Observable.
+    /// - Returns: An Observable instance.
+    public func reachabilityAwareSSE<SO>(_ request: Request, _ sseObs: SO)
+        -> Observable<[Event<Result>]> where
+        SO: ObservableConvertibleType, SO.E == Event<Data>
+    {
+        return retrySSE(request, sseObs).takeUntil(isDisconnectedStream())
     }
     
     /// Open a new SSE connection that listens to connectivity changes.
     ///
     /// - Parameter request: A Request instance.
     /// - Returns: An Observable instance.
-    func reachabilityAwareSSE(_ request: Request) -> Observable<[Event<Result>]> {
-        let qos = request.defaultQoS() ?? .background
-        
-        let sseObs = Observable
-            .create({self.base.openConnection(request, $0)})
-            .subscribeOnConcurrent(qos: qos)
-            .observeOnConcurrent(qos: qos)
-        
-        return reachabilityAwareSSE(request, sseObs)
+    public func reachabilityAwareSSE(_ request: Request) -> Observable<[Event<Result>]> {
+        return reachabilityAwareSSE(request, sseObservable(request))
     }
 }
 
-public extension Reactive where Base: HMSSEManagerType {
+public extension HMSSEManagerType {
     
     /// Open a new SSE connection only when there is internet connectivity.
     ///
@@ -378,30 +384,29 @@ public extension Reactive where Base: HMSSEManagerType {
     ///   - request: A Request instance.
     ///   - sseFn: A SSE connection creator Function.
     /// - Returns: An Observable instance.
-    func retryOnConnectivitySSE<SO>(_ request: Request,
-                                    _ sseFn: @escaping (Request) -> SO)
+    public func retryOnConnectivitySSE<SO>(_ request: Request,
+                                           _ sseFn: @escaping (Request) -> SO)
         -> Observable<[Event<Result>]> where
         SO: ObservableConvertibleType, SO.E == [Event<Result>]
     {
-        return self.isConnected
+        return isConnectedStream()
             
             // We need this update to keep last event id updated.
-            .map({self.base.requestWithDefaultParams(request)})
+            .map({self.requestWithDefaultParams(request)})
             .flatMapLatest({sseFn($0)})
     }
 }
 
-public extension Reactive where Base: HMSSEManagerType {
+public extension HMSSEManagerType {
     
-    /// Open a SSE connection and saves the last event ID every time a new
-    /// batch of events arrives.
+    /// Open a SSE connection and saves the last event ID every time a new batch
+    /// of events arrives.
     ///
     /// - Parameters:
     ///   - request: A Request instance.
     ///   - sseFn: A SSE connection creator Function.
     /// - Returns: An Observable instance.
-    func openConnection<SO>(_ request: Request,
-                            _ sseFn: @escaping (Request) -> SO)
+    public func openConnection<SO>(_ request: Request, _ sseFn: @escaping (Request) -> SO)
         -> Observable<[Event<Result>]> where
         SO: ObservableConvertibleType, SO.E == [Event<Result>]
     {
@@ -410,7 +415,7 @@ public extension Reactive where Base: HMSSEManagerType {
             // A bit of side effect here to store last event ID. We don't need
             // the updated request object here because we are simply taking the
             // URL.
-            .doOnNext({self.base.storeLastEventId(request, $0)})
+            .doOnNext({self.storeLastEventId(request, $0)})
     }
     
     /// Master method to open a SSE connection. Simply provide a request object

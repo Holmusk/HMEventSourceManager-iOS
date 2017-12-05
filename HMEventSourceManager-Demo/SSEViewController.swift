@@ -50,7 +50,7 @@ public final class SSEViewController: UIViewController {
         let sseManager = Singleton().sseManager
         self.sseManager = sseManager
         
-        sseManager.rx.openConnection(request)
+        sseManager.openConnection(request)
             .map(HMSSEvents.eventData)
             .throttle(1, scheduler: MainScheduler.instance)
             .observeOnMain()

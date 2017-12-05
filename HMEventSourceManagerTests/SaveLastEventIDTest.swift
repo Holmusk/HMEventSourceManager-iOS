@@ -34,9 +34,9 @@ public final class SaveLastEventIDTest: RootSSETest {
             return dataSubject.asObservable()
         }
         
-        sseManager.rx.triggerReachable.onNext(false)
+        sseManager.triggerReachable().onNext(false)
         
-        sseManager.rx.openConnection(request, sseFn)
+        sseManager.openConnection(request, sseFn)
             .observeOnMain()
             .subscribe(observer)
             .disposed(by: disposeBag)
@@ -55,13 +55,12 @@ public final class SaveLastEventIDTest: RootSSETest {
                 events = [Event<Result>.dummy]
             }
             
-            sseManager.rx.triggerReachable.onNext(true)
+            sseManager.triggerReachable().onNext(true)
             dataSubject.onNext(events)
             
             /// Then
             XCTAssertEqual(sseManager.lastEventId(request), lastEventId)
-
-            sseManager.rx.triggerReachable.onNext(false)
+            sseManager.triggerReachable().onNext(false)
         }
     }
 }

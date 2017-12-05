@@ -33,15 +33,15 @@ public final class SSERequestTest: RootSSETest {
             return dataSubject
         }
         
-        sseManager.rx.triggerReachable.onNext(false)
+        sseManager.triggerReachable().onNext(false)
         
-        sseManager.rx.openConnection(request, sseFn)
+        sseManager.openConnection(request, sseFn)
             .observeOnMain()
             .subscribe(observer)
             .disposed(by: disposeBag)
         
         /// When
-        sseManager.rx.triggerReachable.onNext(true)
+        sseManager.triggerReachable().onNext(true)
         
         /// Then
         XCTAssertEqual(requestCreatedCount, 1)

@@ -38,7 +38,7 @@ public final class ReachabilityAwareTest: RootSSETest {
         let currentDate = Date()
         var actualWait: TimeInterval = 0
         
-        sseManager.rx.reachabilityAwareSSE(request, connectionObs)
+        sseManager.reachabilityAwareSSE(request, connectionObs)
             .subscribeOnConcurrent(qos: .background)
             .observeOnConcurrent(qos: .background)
             .doOnDispose({actualWait = Date().timeIntervalSince(currentDate)})
@@ -52,7 +52,7 @@ public final class ReachabilityAwareTest: RootSSETest {
         DispatchQueue.global(qos: .background).asyncAfter(deadline: terminateTime, execute: {
             
             // Trigger termination here.
-            connectionTrigger(sseManager.rx.triggerReachable)
+            connectionTrigger(sseManager.triggerReachable())
         })
         
         waitForExpectations(timeout: timeout, handler: nil)

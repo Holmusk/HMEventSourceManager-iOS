@@ -40,7 +40,7 @@ public final class RetryOnConnectivityTest: RootSSETest {
         })
         
         let sseFn: (Request) -> Observable<[Event<Result>]> = {
-            sseManager.rx.reachabilityAwareSSE($0, connectionObs)
+            sseManager.reachabilityAwareSSE($0, connectionObs)
                 .subscribeOnConcurrent(qos: .background)
                 .observeOnConcurrent(qos: .background)
         }
@@ -48,7 +48,7 @@ public final class RetryOnConnectivityTest: RootSSETest {
         let waitTime: TimeInterval = 2
         let restartTimes = 10
         
-        sseManager.rx.retryOnConnectivitySSE(request, sseFn)
+        sseManager.retryOnConnectivitySSE(request, sseFn)
             .takeUntil(terminateSbj)
             .doOnDispose(expect.fulfill)
             .subscribe(observer)
@@ -60,10 +60,10 @@ public final class RetryOnConnectivityTest: RootSSETest {
         DispatchQueue.global(qos: .background).asyncAfter(deadline: terminateTime, execute: {
             for _ in 0..<restartTimes {
                 // When reachable is false, old stream is terminated.
-                sseManager.rx.triggerReachable.onNext(false)
+                sseManager.triggerReachable().onNext(false)
                 
                 // When reachable is true, a new stream is started.
-                sseManager.rx.triggerReachable.onNext(true)
+                sseManager.triggerReachable().onNext(true)
             }
             
             // When this calls onNext, the stream will be terminated.
