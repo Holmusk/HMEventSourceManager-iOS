@@ -41,18 +41,18 @@ public final class SSEViewController: UIViewController {
         let base64String = authData!.base64EncodedString(options: [])
         let authToken = "Basic \(base64String)"
         
-        let request = HMSSEManager.Request.builder()
+        let request = HMSSEManager.Req.builder()
             .with(urlString: "http://127.0.0.1:8080/sse")
             .with(retryDelay: 3)
+            .with(sseStrategy: .retryOnError)
             .add(header: authToken, forKey: "Authorization")
             .build()
         
         let sseManager = Singleton().sseManager
         self.sseManager = sseManager
         
-        sseManager.openConnection(request)
+        sseManager.openConnection(request, .background)
             .map(HMSSEvents.eventData)
-            .throttle(1, scheduler: MainScheduler.instance)
             .observeOnMain()
             .doOnNext({[weak self] in self?.dataSource.append(contentsOf: $0)})
             .doOnNext({[weak tableView] _ in tableView?.reloadData()})

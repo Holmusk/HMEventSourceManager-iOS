@@ -23,20 +23,16 @@ public final class SaveLastEventIDTest: RootSSETest {
         let times = 1000
         let dataSubject = PublishSubject<[Event<Result>]>()
         
-        let request = HMSSEManager.Request.builder()
+        let request = HMSSEManager.Req.builder()
             .with(urlString: "https://holmusk.com")
             .with(headers: ["MockHeader" : "MockValue"])
             .build()
         
         var lastEventId: String?
         
-        let sseFn: (Request) -> Observable<[Event<Result>]> = {_ in
-            return dataSubject.asObservable()
-        }
-        
         sseManager.triggerReachable().onNext(false)
         
-        sseManager.openConnection(request, sseFn)
+        sseManager.openConnection(request, dataSubject)
             .observeOnMain()
             .subscribe(observer)
             .disposed(by: disposeBag)

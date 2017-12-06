@@ -24,12 +24,12 @@ public final class ReachabilityAwareTest: RootSSETest {
         let disposeBag = self.disposeBag!
         let sseManager = self.newSSEManager()
         
-        let request = HMSSEManager.Request.builder()
+        let request = HMSSEManager.Req.builder()
             .with(urlString: "MockUrl")
             .build()
         
-        let connectionObs = Observable<HMSSEvent<Data>>.create({
-            $0.onError(Exception("Error!"))
+        let connectionObs = Observable<Try<HMSSEvent<Data>>>.create({
+            $0.onNext(.failure(Exception("Error!")))
             return Disposables.create()
         })
         

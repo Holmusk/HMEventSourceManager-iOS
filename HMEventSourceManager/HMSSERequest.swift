@@ -8,27 +8,30 @@
 
 import SwiftUtilities
 
-/// Request object for SSE manager.
+/// Req object for SSE manager.
 public struct HMSSERequest {
     fileprivate var retryDelayIntv: TimeInterval
     fileprivate var urlStr: String?
     fileprivate var headers: [String : Any]
-    fileprivate var sseDefaultQoS: DispatchQoS.QoSClass?
+    fileprivate var sseStrategy: HMSSEStrategy
     
     fileprivate init() {
         retryDelayIntv = 0
         headers = [:]
+        sseStrategy = .retryOnError
     }
+}
 
+extension HMSSERequest: HMSSERequestType {
     public func retryDelay() -> TimeInterval {
         return retryDelayIntv
     }
     
-    public func urlString() -> String {
+    public func urlString() throws -> String {
         if let urlString = self.urlStr {
             return urlString
         } else {
-            fatalError("URL String cannot be nil")
+            throw Exception("URL String cannot be nil")
         }
     }
     
@@ -36,8 +39,8 @@ public struct HMSSERequest {
         return headers
     }
     
-    public func defaultQoS() -> DispatchQoS.QoSClass? {
-        return sseDefaultQoS
+    public func sseStreamStrategy() -> HMSSEStrategy {
+        return sseStrategy
     }
 }
 
@@ -73,12 +76,6 @@ extension HMSSERequest: BuildableType {
         @discardableResult
         public func with(urlString: String?) -> Self {
             request.urlStr = urlString
-            return self
-        }
-        
-        @discardableResult
-        public func with(defaultQoS: DispatchQoS.QoSClass?) -> Self {
-            request.sseDefaultQoS = defaultQoS
             return self
         }
         
@@ -119,6 +116,16 @@ extension HMSSERequest: BuildableType {
             
             return self
         }
+        
+        /// Set the SSE strategy.
+        ///
+        /// - Parameter sseStrategy: A HMSSEStrategy instance.
+        /// - Returns: The current Builder instance.
+        @discardableResult
+        public func with(sseStrategy: HMSSEStrategy) -> Self {
+            request.sseStrategy = sseStrategy
+            return self
+        }
     }
 }
 
@@ -132,7 +139,7 @@ extension HMSSERequest.Builder: BuilderType {
                 .with(retryDelay: buildable.retryDelayIntv)
                 .with(urlString: buildable.urlStr)
                 .with(headers: buildable.headers)
-                .with(defaultQoS: buildable.sseDefaultQoS)
+                .with(sseStrategy: buildable.sseStrategy)
         } else {
             return self
         }
@@ -145,7 +152,7 @@ extension HMSSERequest.Builder: BuilderType {
 
 public extension HMSSERequest {
     public func url() throws -> URL {
-        let urlString = self.urlString()
+        let urlString = try self.urlString()
         
         if let url = URL(string: urlString) {
             return url

@@ -12,10 +12,12 @@
 		A9ED25AE06EB8AFE3F6EECE9 /* Pods_HMEventSourceManager_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F0F7AFC1B01A2CD6F12990B /* Pods_HMEventSourceManager_Demo.framework */; };
 		D301FDBF1F74AFE20039181A /* SSECell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D301FDBE1F74AFE20039181A /* SSECell.xib */; };
 		D301FDC11F74B4D20039181A /* HMSSERequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D301FDC01F74B4D20039181A /* HMSSERequest.swift */; };
-		D30222031F73616100DF36D7 /* HMURLSessionSSEDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30222021F73616100DF36D7 /* HMURLSessionSSEDelegate.swift */; };
+		D30222031F73616100DF36D7 /* HMSSEDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30222021F73616100DF36D7 /* HMSSEDelegate.swift */; };
+		D30500A81FD7914C00F2CD4E /* HMSSEStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30500A71FD7914C00F2CD4E /* HMSSEStrategy.swift */; };
 		D340747A1F74C78400E0F79D /* SaveLastEventIDTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34074791F74C78400E0F79D /* SaveLastEventIDTest.swift */; };
 		D340747C1F74CEA200E0F79D /* TestUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = D340747B1F74CEA200E0F79D /* TestUtil.swift */; };
 		D340747E1F74D8FD00E0F79D /* HMEventSourceManager.podspec in Resources */ = {isa = PBXBuildFile; fileRef = D340747D1F74D8FC00E0F79D /* HMEventSourceManager.podspec */; };
+		D343A42C1FD7C29200912785 /* HMSSERequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D343A42B1FD7C29200912785 /* HMSSERequestType.swift */; };
 		D34FEBDE1F74EE2400F9CD9F /* SSERequestTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34FEBDD1F74EE2400F9CD9F /* SSERequestTest.swift */; };
 		D36897551F7365E800321CBA /* SSEViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36897541F7365E800321CBA /* SSEViewController.swift */; };
 		D384B9A41F7408D900999116 /* HMSSEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D384B9A31F7408D900999116 /* HMSSEvent.swift */; };
@@ -83,10 +85,12 @@
 		A2EF6CE34EDF0AF0E66DC98F /* Pods-HMEventSourceManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HMEventSourceManager.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HMEventSourceManager/Pods-HMEventSourceManager.debug.xcconfig"; sourceTree = "<group>"; };
 		D301FDBE1F74AFE20039181A /* SSECell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SSECell.xib; sourceTree = "<group>"; };
 		D301FDC01F74B4D20039181A /* HMSSERequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMSSERequest.swift; sourceTree = "<group>"; };
-		D30222021F73616100DF36D7 /* HMURLSessionSSEDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMURLSessionSSEDelegate.swift; sourceTree = "<group>"; };
+		D30222021F73616100DF36D7 /* HMSSEDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMSSEDelegate.swift; sourceTree = "<group>"; };
+		D30500A71FD7914C00F2CD4E /* HMSSEStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMSSEStrategy.swift; sourceTree = "<group>"; };
 		D34074791F74C78400E0F79D /* SaveLastEventIDTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveLastEventIDTest.swift; sourceTree = "<group>"; };
 		D340747B1F74CEA200E0F79D /* TestUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtil.swift; sourceTree = "<group>"; };
 		D340747D1F74D8FC00E0F79D /* HMEventSourceManager.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HMEventSourceManager.podspec; sourceTree = "<group>"; };
+		D343A42B1FD7C29200912785 /* HMSSERequestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMSSERequestType.swift; sourceTree = "<group>"; };
 		D34FEBDD1F74EE2400F9CD9F /* SSERequestTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSERequestTest.swift; sourceTree = "<group>"; };
 		D36897541F7365E800321CBA /* SSEViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSEViewController.swift; sourceTree = "<group>"; };
 		D384B9A31F7408D900999116 /* HMSSEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMSSEvent.swift; sourceTree = "<group>"; };
@@ -194,10 +198,12 @@
 				D3BC983C1F73834D0038A988 /* HMSSEManager+Extension.swift */,
 				D3FD13A71F73FDD1006AAD54 /* HMSSEManagerType.swift */,
 				D301FDC01F74B4D20039181A /* HMSSERequest.swift */,
+				D30500A71FD7914C00F2CD4E /* HMSSEStrategy.swift */,
 				D384B9A31F7408D900999116 /* HMSSEvent.swift */,
 				D3B063A31F743E4B00A01B98 /* HMSSEvents.swift */,
-				D30222021F73616100DF36D7 /* HMURLSessionSSEDelegate.swift */,
+				D30222021F73616100DF36D7 /* HMSSEDelegate.swift */,
 				D3E35FB41F724C74004C4124 /* Info.plist */,
+				D343A42B1FD7C29200912785 /* HMSSERequestType.swift */,
 			);
 			path = HMEventSourceManager;
 			sourceTree = "<group>";
@@ -565,6 +571,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D30500A81FD7914C00F2CD4E /* HMSSEStrategy.swift in Sources */,
 				D3BC983D1F73834D0038A988 /* HMSSEManager+Extension.swift in Sources */,
 				D384B9A41F7408D900999116 /* HMSSEvent.swift in Sources */,
 				D3FD13A81F73FDD1006AAD54 /* HMSSEManagerType.swift in Sources */,
@@ -572,7 +579,8 @@
 				D3E35FCB1F724E4C004C4124 /* HMSSEManager.swift in Sources */,
 				D384B9A61F741DC400999116 /* HMSSEData.swift in Sources */,
 				D301FDC11F74B4D20039181A /* HMSSERequest.swift in Sources */,
-				D30222031F73616100DF36D7 /* HMURLSessionSSEDelegate.swift in Sources */,
+				D343A42C1FD7C29200912785 /* HMSSERequestType.swift in Sources */,
+				D30222031F73616100DF36D7 /* HMSSEDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -771,7 +779,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -795,7 +803,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.holmusk.HMEventSourceManager;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

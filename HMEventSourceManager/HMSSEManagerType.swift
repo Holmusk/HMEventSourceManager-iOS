@@ -11,11 +11,13 @@ import SwiftUtilities
 
 /// Classes that implement this protocol must be able to handle SSE events.
 public protocol HMSSEManagerType: ReactiveCompatible {
-    typealias Request = HMSSERequest
+    typealias Req = HMSSERequest
     typealias Result = HMSSEData
     typealias Event = HMSSEvent
     
     var newlineCharacters: [String] { get }
+    
+    func addDefaultParams(_ request: Req) -> Req
     
     func isReachableStream() -> Observable<Bool>
     
@@ -27,32 +29,14 @@ public protocol HMSSEManagerType: ReactiveCompatible {
     /// Store the last event ID in local storage.
     func storeLastEventIdWithKey(_ key: String, _ value: String)
     
-    /// DidReceiveData callback.
-    func didReceiveData<O>(_ task: URLSessionDataTask,
-                           _ data: Data,
-                           _ obs: O) where
-        O: ObserverType, O.E == Event<Data>
-    
-    /// DidReceiveResponse callback.
-    func didReceiveResponse<E,O>(_ task: URLSessionDataTask,
-                                 _ response: URLResponse,
-                                 _ obs: O) where
-        O: ObserverType, O.E == Event<E>
-    
-    /// DidCompleteWithError callback.
-    func didCompleteWithError<O>(_ task: URLSessionTask,
-                                 _ error: Error?,
-                                 _ obs: O) where
-        O: ObserverType, O.E == Event<Data>
-    
     /// Open a SSE connection.
     ///
     /// - Parameters:
-    ///   - request: A Request instance.
+    ///   - request: A Req instance.
     ///   - obs: An ObserverType instance.
     /// - Returns: A Disposable instance.
-    func openConnection<O>(_ request: Request, _ obs: O) -> Disposable where
-        O: ObserverType, O.E == Event<Data>
+    func openConnection<O>(_ request: Req, _ obs: O) -> Disposable where
+        O: ObserverType, O.E == Try<Event<Data>>
 }
 
 public extension HMSSEManagerType {
@@ -84,9 +68,9 @@ public extension HMSSEManagerType {
     
     /// Get the last event ID key for a request.
     ///
-    /// - Parameter request: A Request instance.
+    /// - Parameter request: A Req instance.
     /// - Returns: A String value.
-    func lastEventIdKey(_ request: Request) -> String {
+    func lastEventIdKey(_ request: Req) -> String {
         do {
             let url = try request.url()
             return self.lastEventIdKey(url)
@@ -98,9 +82,9 @@ public extension HMSSEManagerType {
     
     /// Get the last event ID for a request.
     ///
-    /// - Parameter request: A Request instance.
+    /// - Parameter request: A Req instance.
     /// - Returns: A String value.
-    func lastEventId(_ request: Request) -> String? {
+    func lastEventId(_ request: Req) -> String? {
         let lastEventIdKey = self.lastEventIdKey(request)
         return lastEventIdForKey(lastEventIdKey)
     }
@@ -108,9 +92,9 @@ public extension HMSSEManagerType {
     /// /// Store the last event ID in local storage.
     ///
     /// - Parameters:
-    ///   - request: A Request instance.
+    ///   - request: A Req instance.
     ///   - events: A Sequence of Event.
-    func storeLastEventId<S>(_ request: Request, _ events: S) where
+    func storeLastEventId<S>(_ request: Req, _ events: S) where
         S: Sequence, S.Iterator.Element == Event<Result>
     {
         if let id = HMSSEvents.eventData(events).flatMap({$0.id}).last {
@@ -121,9 +105,9 @@ public extension HMSSEManagerType {
     
     /// Get a cloned request with some default parameters.
     ///
-    /// - Parameter request: A Request instance.
-    /// - Returns: A Request instance.
-    func requestWithDefaultParams(_ request: Request) -> Request {
+    /// - Parameter request: A Req instance.
+    /// - Returns: A Req instance.
+    func addDefaultParams(_ request: Req) -> Req {
         let cls = Self.self
         
         return request.cloneBuilder()
@@ -135,9 +119,9 @@ public extension HMSSEManagerType {
     
     /// Get a URLSessionConfiguration to use with SSE URLSession.
     ///
-    /// - Parameter request: A Request instance.
+    /// - Parameter request: A Req instance.
     /// - Returns: A URLSessionConfiguration instance.
-    func urlSessionConfig(_ request: Request) -> URLSessionConfiguration {
+    func urlSessionConfig(_ request: Req) -> URLSessionConfiguration {
         let config = URLSessionConfiguration.default
         
         // Note: Do not use Int.max here as it is an invalid timeout interval.
@@ -313,28 +297,34 @@ public extension HMSSEManagerType {
 }
 
 public extension HMSSEManagerType {
-    fileprivate func sseObservable(_ request: Request) -> Observable<Event<Data>> {
-        let qos = request.defaultQoS() ?? .background
-        
-        return Observable
-            .create({self.openConnection(request, $0)})
-            .subscribeOnConcurrent(qos: qos)
+    
+    /// Create a SSE stream Observable.
+    ///
+    /// - Parameters request: A Req instance.
+    /// - Returns: An Observable instance.
+    func sseObservable(_ request: Req) -> Observable<Try<Event<Data>>> {
+        return Observable.create({self.openConnection(self.addDefaultParams(request), $0)})
     }
+}
+
+// MARK: - Infinite retry SSE.
+public extension HMSSEManagerType {
     
     /// Open a new SSE connection that retries infinitely.
     ///
     /// - Parameters:
-    ///   - request: A Request instance.
+    ///   - request: A Req instance.
     ///   - sseObs: A SSE connection creator Observable.
     /// - Returns: An Observable instance.
-    public func retrySSE<SO>(_ request: Request, _ sseObs: SO)
+    public func inifiniteRetrySSE<SO>(_ request: Req, _ sseObs: SO)
         -> Observable<[Event<Result>]> where
-        SO: ObservableConvertibleType, SO.E == Event<Data>
+        SO: ObservableConvertibleType, SO.E == Try<Event<Data>>
     {
         let delay = request.retryDelay()
         let retryScheduler = ConcurrentDispatchQueueScheduler(qos: .background)
         
         return sseObs.asObservable()
+            .map({try $0.getOrThrow()})
             .delayRetry(delay: delay, scheduler: retryScheduler)
             .map({event -> [Event<Result>] in
                 if let value = event.value {
@@ -344,56 +334,54 @@ public extension HMSSEManagerType {
                 }
             })
     }
-    
-    /// Open a new SSE connection that retries infinitely.
-    ///
-    /// - Parameters request: A Request instance.
-    /// - Returns: An Observable instance.
-    public func retrySSE(_ request: Request) -> Observable<[Event<Result>]> {
-        return retrySSE(request, sseObservable(request))
-    }
+}
+
+// MARK: - Reachability aware SSE.
+public extension HMSSEManagerType {
     
     /// Open a new SSE connection that listens to connectivity changes and
     /// terminates when connectivity is not available.
     ///
     /// - Parameters:
-    ///   - request: A Request instance.
+    ///   - request: A Req instance.
     ///   - sseObs: A SSE connection creator Observable.
     /// - Returns: An Observable instance.
-    public func reachabilityAwareSSE<SO>(_ request: Request, _ sseObs: SO)
+    public func reachabilityAwareSSE<SO>(_ request: Req, _ sseObs: SO)
         -> Observable<[Event<Result>]> where
-        SO: ObservableConvertibleType, SO.E == Event<Data>
+        SO: ObservableConvertibleType, SO.E == Try<Event<Data>>
     {
-        return retrySSE(request, sseObs).takeUntil(isDisconnectedStream())
-    }
-    
-    /// Open a new SSE connection that listens to connectivity changes.
-    ///
-    /// - Parameter request: A Request instance.
-    /// - Returns: An Observable instance.
-    public func reachabilityAwareSSE(_ request: Request) -> Observable<[Event<Result>]> {
-        return reachabilityAwareSSE(request, sseObservable(request))
+        return inifiniteRetrySSE(request, sseObs).takeUntil(isDisconnectedStream())
     }
 }
 
+// MARK: - Retry on connectivity SSE.
 public extension HMSSEManagerType {
     
     /// Open a new SSE connection only when there is internet connectivity.
     ///
     /// - Parameters:
-    ///   - request: A Request instance.
+    ///   - request: A Req instance.
     ///   - sseFn: A SSE connection creator Function.
     /// - Returns: An Observable instance.
-    public func retryOnConnectivitySSE<SO>(_ request: Request,
-                                           _ sseFn: @escaping (Request) -> SO)
+    public func retryOnConnectivitySSE<SO>(_ request: Req,
+                                           _ sseFn: @escaping (Req) -> SO)
         -> Observable<[Event<Result>]> where
         SO: ObservableConvertibleType, SO.E == [Event<Result>]
     {
-        return isConnectedStream()
-            
-            // We need this update to keep last event id updated.
-            .map({self.requestWithDefaultParams(request)})
-            .flatMapLatest({sseFn($0)})
+        return isConnectedStream().flatMapLatest({sseFn(request)})
+    }
+    
+    /// Open a new SSE connection only when there is internet connectivity.
+    ///
+    /// - Parameter:
+    ///   - request: A Req instance.
+    ///   - sseObs: The SSE Observable.
+    /// - Returns: An Observable instance.
+    public func retryOnConnectivitySSE<SO>(_ request: Req, _ sseObs: SO)
+        -> Observable<[Event<Result>]> where
+        SO: ObservableConvertibleType, SO.E == Try<HMSSEvent<Data>>
+    {
+        return retryOnConnectivitySSE(request, {self.reachabilityAwareSSE($0, sseObs)})
     }
 }
 
@@ -403,14 +391,14 @@ public extension HMSSEManagerType {
     /// of events arrives.
     ///
     /// - Parameters:
-    ///   - request: A Request instance.
-    ///   - sseFn: A SSE connection creator Function.
+    ///   - request: A Req instance.
+    ///   - sseObs: The SSE stream creator function.
     /// - Returns: An Observable instance.
-    public func openConnection<SO>(_ request: Request, _ sseFn: @escaping (Request) -> SO)
+    public func openConnection<SO>(_ request: Req, _ sseObs: SO)
         -> Observable<[Event<Result>]> where
         SO: ObservableConvertibleType, SO.E == [Event<Result>]
     {
-        return retryOnConnectivitySSE(request, sseFn)
+        return sseObs.asObservable()
             
             // A bit of side effect here to store last event ID. We don't need
             // the updated request object here because we are simply taking the
@@ -418,15 +406,61 @@ public extension HMSSEManagerType {
             .doOnNext({self.storeLastEventId(request, $0)})
     }
     
-    /// Master method to open a SSE connection. Simply provide a request object
-    /// and subscribe to this stream to receive updates.
+    /// Open a SSE connection and saves the last event ID every time a new batch
+    /// of events arrives.
     ///
-    /// - Parameter request: A Request instance.
+    /// - Parameters:
+    ///   - request: A Req instance.
+    ///   - sseFn: Function to create a SSE Observable.
     /// - Returns: An Observable instance.
-    public func openConnection(_ request: Request) -> Observable<[Event<Result>]> {
-        let qos = request.defaultQoS() ?? .background
+    public func openConnection<SO>(_ request: Req, _ sseFn: (Req) -> SO)
+        -> Observable<[Event<Result>]> where
+        SO: ObservableConvertibleType, SO.E == [Event<Result>]
+    {
+        return openConnection(request, sseFn(request))
+    }
+    
+    /// Open a SSE connection and saves the last event ID every time a new batch
+    /// of events arrives.
+    ///
+    /// - Parameters:
+    ///   - request: A Req instance.
+    ///   - sseObs: The SSE Observable.
+    /// - Returns: An Observable instance.
+    public func openConnection<SO>(_ request: Req, _ sseObs: SO)
+        -> Observable<[Event<Result>]> where
+        SO: ObservableConvertibleType, SO.E == Try<HMSSEvent<Data>>
+    {
+        let sseFn: (Req) -> Observable<[Event<Result>]>
         
-        return openConnection(request, reachabilityAwareSSE)
+        switch request.sseStreamStrategy() {
+        case .retryOnError: sseFn = {self.inifiniteRetrySSE($0, sseObs)}
+        case .retryOnConnectivity: sseFn = {self.retryOnConnectivitySSE($0, sseObs)}
+        }
+        
+        return openConnection(request, sseFn)
+    }
+    
+    /// Open a SSE connection and saves the last event ID every time a new batch
+    /// of events arrives.
+    ///
+    /// - Parameters request: A Req instance.
+    /// - Returns: An Observable instance.
+    public func openConnection(_ request: Req) -> Observable<[Event<Result>]> {
+        return openConnection(request, sseObservable(request))
+    }
+    
+    /// Open a SSE connection and saves the last event ID every time a new batch
+    /// of events arrives.
+    ///
+    /// - Parameters:
+    ///   - request: A Req instance.
+    ///   - qos: The QoSClass to perform work on.
+    /// - Returns: An Observable instance.
+    public func openConnection(_ request: Req, _ qos: DispatchQoS.QoSClass)
+        -> Observable<[Event<Result>]>
+    {
+        return openConnection(request)
             .subscribeOnConcurrent(qos: qos)
             .observeOnConcurrent(qos: qos)
     }

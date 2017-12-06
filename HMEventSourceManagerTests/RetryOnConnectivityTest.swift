@@ -25,21 +25,17 @@ public final class RetryOnConnectivityTest: RootSSETest {
         let terminateSbj = PublishSubject<Void>()
         var currentIteration = 0
         
-        let request = HMSSEManager.Request.builder()
+        let request = HMSSEManager.Req.builder()
             .with(urlString: "MockURL")
             .build()
         
-        let connectionObs = Observable<Event<Data>>.create({
+        let connectionObs = Observable<Try<Event<Data>>>.create({obs in
             currentIteration += 1
-            
-            for _ in (0..<Int.max) {
-                $0.onNext(Event<Data>.dummy)
-            }
-            
+            (0..<Int.max).forEach({_ in obs.onNext(.success(.dummy))})
             return Disposables.create()
         })
         
-        let sseFn: (Request) -> Observable<[Event<Result>]> = {
+        let sseFn: (Req) -> Observable<[Event<Result>]> = {
             sseManager.reachabilityAwareSSE($0, connectionObs)
                 .subscribeOnConcurrent(qos: .background)
                 .observeOnConcurrent(qos: .background)

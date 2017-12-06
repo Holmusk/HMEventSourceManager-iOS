@@ -18,30 +18,30 @@ import XCTest
 public final class SSERequestTest: RootSSETest {
     public func test_openConnection_shouldAddDefaultHeadersToRequest() {
         /// Setup
-        let observer = scheduler.createObserver([Event<Result>].self)
         let sseManager = self.newSSEManager()
-        let request = Request.builder().with(urlString: "MockURL").build()
-        let dataSubject = BehaviorSubject<[Event<Result>]>(value: [])
+        
+        let request = Req.builder()
+            .with(urlString: "MockURL")
+            .with(retryDelay: 1000)
+            .build()
+        
         let cls = HMSSEManager.self
         var requestCreatedCount = 0
         
-        let sseFn: (Request) -> Observable<[Event<Result>]> = {
+        sseManager.addDefaultParamsInterceptor = {
             requestCreatedCount += 1
             let headers = $0.additionalHeaders() as! [String : String]
             XCTAssertEqual(headers[cls.acceptKey], cls.textEventStream)
             XCTAssertEqual(headers[cls.cacheControlKey], cls.noCache)
-            return dataSubject
         }
         
-        sseManager.triggerReachable().onNext(false)
-        
-        sseManager.openConnection(request, sseFn)
+        sseManager.openConnection(request)
+            .subscribeOnConcurrent(qos: .background)
             .observeOnMain()
-            .subscribe(observer)
+            .subscribe()
             .disposed(by: disposeBag)
         
-        /// When
-        sseManager.triggerReachable().onNext(true)
+        waitOnMainThread(0.5)
         
         /// Then
         XCTAssertEqual(requestCreatedCount, 1)

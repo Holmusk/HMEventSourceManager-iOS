@@ -14,7 +14,7 @@ import XCTest
 @testable import HMEventSourceManager
 
 public class RootSSETest: XCTestCase {
-    public typealias Request = HMSSEManager.Request
+    public typealias Req = HMSSEManager.Req
     public typealias Event = HMSSEManager.Event
     public typealias Result = HMSSEManager.Result
     public var scheduler: TestScheduler!
