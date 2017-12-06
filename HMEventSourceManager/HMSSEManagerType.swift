@@ -300,10 +300,17 @@ public extension HMSSEManagerType {
     
     /// Create a SSE stream Observable.
     ///
-    /// - Parameters request: A Req instance.
+    /// - Parameters:
+    ///   - request: A Req instance.
+    ///   - qos: The QoSClass instance to perform work on.
     /// - Returns: An Observable instance.
-    func sseObservable(_ request: Req) -> Observable<Try<Event<Data>>> {
-        return Observable.create({self.openConnection(self.addDefaultParams(request), $0)})
+    func sseObservable(_ request: Req, _ qos: DispatchQoS.QoSClass)
+        -> Observable<Try<Event<Data>>>
+    {
+        return Observable
+            .create({self.openConnection(self.addDefaultParams(request), $0)})
+            .subscribeOnConcurrent(qos: qos)
+            .observeOnConcurrent(qos: qos)
     }
 }
 
@@ -444,15 +451,6 @@ public extension HMSSEManagerType {
     /// Open a SSE connection and saves the last event ID every time a new batch
     /// of events arrives.
     ///
-    /// - Parameters request: A Req instance.
-    /// - Returns: An Observable instance.
-    public func openConnection(_ request: Req) -> Observable<[Event<Result>]> {
-        return openConnection(request, sseObservable(request))
-    }
-    
-    /// Open a SSE connection and saves the last event ID every time a new batch
-    /// of events arrives.
-    ///
     /// - Parameters:
     ///   - request: A Req instance.
     ///   - qos: The QoSClass to perform work on.
@@ -460,8 +458,6 @@ public extension HMSSEManagerType {
     public func openConnection(_ request: Req, _ qos: DispatchQoS.QoSClass)
         -> Observable<[Event<Result>]>
     {
-        return openConnection(request)
-            .subscribeOnConcurrent(qos: qos)
-            .observeOnConcurrent(qos: qos)
+        return openConnection(request, sseObservable(request, qos))
     }
 }

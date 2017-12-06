@@ -44,7 +44,7 @@ public final class SSEViewController: UIViewController {
         let request = HMSSEManager.Req.builder()
             .with(urlString: "http://127.0.0.1:8080/sse")
             .with(retryDelay: 3)
-            .with(sseStrategy: .retryOnError)
+            .with(sseStrategy: .retryOnConnectivity)
             .add(header: authToken, forKey: "Authorization")
             .build()
         

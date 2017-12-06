@@ -35,7 +35,7 @@ public final class SSERequestTest: RootSSETest {
             XCTAssertEqual(headers[cls.cacheControlKey], cls.noCache)
         }
         
-        sseManager.openConnection(request)
+        sseManager.openConnection(request, .background)
             .subscribeOnConcurrent(qos: .background)
             .observeOnMain()
             .subscribe()
