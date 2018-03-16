@@ -11,13 +11,19 @@ PODS:
   - RxSwift (3.6.1)
   - RxTest (3.6.1):
     - RxSwift (~> 3.6)
+  - SwiftFP (1.0.0):
+    - SwiftFP/Main (= 1.0.0)
+  - SwiftFP/Main (1.0.0)
   - SwiftUIUtilities/Main (1.6.0):
     - SwiftUtilities/Main
   - SwiftUtilities/Main (1.4.5):
+    - SwiftFP (~> 1.0.0)
+  - SwiftUtilities/Main+Rx (1.4.5):
     - RxBlocking (~> 3.0)
     - RxCocoa (~> 3.0)
     - RxSwift (~> 3.0)
-  - SwiftUtilitiesTests/Main (1.4.5):
+    - SwiftFP (~> 1.0.0)
+  - SwiftUtilitiesTests/Main+Rx (1.4.5):
     - RxBlocking (~> 3.0)
     - RxCocoa (~> 3.0)
     - RxSwift (~> 3.0)
@@ -27,8 +33,8 @@ DEPENDENCIES:
   - ReachabilitySwift
   - RxReachability
   - SwiftUIUtilities/Main (from `https://github.com/protoman92/SwiftUIUtilities.git`)
-  - SwiftUtilities/Main (from `https://github.com/protoman92/SwiftUtilities.git`)
-  - SwiftUtilitiesTests/Main (from `https://github.com/protoman92/SwiftUtilities.git`)
+  - SwiftUtilities/Main+Rx (from `https://github.com/protoman92/SwiftUtilities.git`)
+  - SwiftUtilitiesTests/Main+Rx (from `https://github.com/protoman92/SwiftUtilities.git`)
 
 EXTERNAL SOURCES:
   SwiftUIUtilities:
@@ -43,10 +49,10 @@ CHECKOUT OPTIONS:
     :commit: c61523950d92ba1f16f2f68e7ab34ecfbbe540d6
     :git: https://github.com/protoman92/SwiftUIUtilities.git
   SwiftUtilities:
-    :commit: 18d4bbe1368555569822681f18dd167e5d3c32e4
+    :commit: fc95c185bca98cb22946d0366586f071c53fd470
     :git: https://github.com/protoman92/SwiftUtilities.git
   SwiftUtilitiesTests:
-    :commit: 18d4bbe1368555569822681f18dd167e5d3c32e4
+    :commit: fc95c185bca98cb22946d0366586f071c53fd470
     :git: https://github.com/protoman92/SwiftUtilities.git
 
 SPEC CHECKSUMS:
@@ -56,10 +62,11 @@ SPEC CHECKSUMS:
   RxReachability: 0e781fc978c3c850dda6cafa2c5956ff806a1fcc
   RxSwift: f9de85ea20cd2f7716ee5409fc13523dc638e4e4
   RxTest: 1d00348a7848c91ab5bf5d197d2378aa6b2bb356
+  SwiftFP: 7ce3b2b2fb3c85d6195fd50cb1d873dcf82ae50e
   SwiftUIUtilities: 4c540492fe56917d38beacf9a02b5d54c4dcba19
-  SwiftUtilities: ef0087625fe58fb8909af372111e23461d10af55
-  SwiftUtilitiesTests: ed0f926a2abd328fdee7cbe2d6f6550b62a9ff86
+  SwiftUtilities: dd99610e76f2f86c7089c51aa65ce8cc982858bb
+  SwiftUtilitiesTests: e5b92a392a70786531092a3454c55d10af1a63cb
 
-PODFILE CHECKSUM: cbb0caf1aecfa4c20227b55312227b53bf003767
+PODFILE CHECKSUM: 6fc97b02a4651ed0fe1441509120df9d473b7fe3
 
-COCOAPODS: 1.4.0.rc.1
+COCOAPODS: 1.4.0
