@@ -27,15 +27,17 @@ DEPENDENCIES:
   - ReachabilitySwift
   - RxReachability
   - SwiftUIUtilities/Main (from `https://github.com/protoman92/SwiftUIUtilities.git`)
-  - SwiftUtilities/Main (from `https://github.com/protoman92/SwiftUtilities.git`)
-  - SwiftUtilitiesTests/Main (from `https://github.com/protoman92/SwiftUtilities.git`)
+  - SwiftUtilities/Main (from `https://github.com/protoman92/SwiftUtilities.git`, branch `legacy`)
+  - SwiftUtilitiesTests/Main (from `https://github.com/protoman92/SwiftUtilities.git`, branch `legacy`)
 
 EXTERNAL SOURCES:
   SwiftUIUtilities:
     :git: https://github.com/protoman92/SwiftUIUtilities.git
   SwiftUtilities:
+    :branch: legacy
     :git: https://github.com/protoman92/SwiftUtilities.git
   SwiftUtilitiesTests:
+    :branch: legacy
     :git: https://github.com/protoman92/SwiftUtilities.git
 
 CHECKOUT OPTIONS:
@@ -60,6 +62,6 @@ SPEC CHECKSUMS:
   SwiftUtilities: ef0087625fe58fb8909af372111e23461d10af55
   SwiftUtilitiesTests: ed0f926a2abd328fdee7cbe2d6f6550b62a9ff86
 
-PODFILE CHECKSUM: cbb0caf1aecfa4c20227b55312227b53bf003767
+PODFILE CHECKSUM: 679ce0d66017729a41571914904c32dfe4c9f912
 
-COCOAPODS: 1.4.0.rc.1
+COCOAPODS: 1.4.0
