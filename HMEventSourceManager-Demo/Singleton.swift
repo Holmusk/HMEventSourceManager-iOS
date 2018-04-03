@@ -12,24 +12,24 @@ import ReachabilitySwift
 import RxSwift
 
 public struct Singleton {
-    private static var instance: Singleton?
-    
-    public static var shared: Singleton {
-        if let instance = instance {
-            return instance
-        } else {
-            let instance = Singleton()
-            self.instance = instance
-            return instance
-        }
+  private static var instance: Singleton?
+
+  public static var shared: Singleton {
+    if let instance = instance {
+      return instance
+    } else {
+      let instance = Singleton()
+      self.instance = instance
+      return instance
     }
-    
-    public let sseManager: HMSSEManager
-    
-    init() {
-        sseManager = HMSSEManager.builder()
-            .with(networkChecker: Reachability())
-            .with(userDefaults: UserDefaults.standard)
-            .build()
-    }
+  }
+
+  public let sseManager: HMSSEManager
+
+  init() {
+    sseManager = HMSSEManager.builder()
+      .with(networkChecker: Reachability())
+      .with(userDefaults: UserDefaults.standard)
+      .build()
+  }
 }

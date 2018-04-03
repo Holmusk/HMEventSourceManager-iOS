@@ -9,7 +9,8 @@ Pod::Spec.new do |s|
     s.author = { "Holmusk" => "viethai.pham@holmusk.com" }
     s.homepage = "https://github.com/Holmusk/HMEventSourceManager-iOS.git"
     s.source = { :git => "https://github.com/Holmusk/HMEventSourceManager-iOS.git", :tag => "#{s.version}"}
-    s.dependency 'SwiftUtilities/Main'
+    s.dependency 'SwiftFP/Main'
+    s.dependency 'SwiftUtilities/Main+Rx'
     s.dependency 'ReachabilitySwift'
     s.dependency 'RxReachability'
 

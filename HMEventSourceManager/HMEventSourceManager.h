@@ -15,5 +15,3 @@ FOUNDATION_EXPORT double HMEventSourceManagerVersionNumber;
 FOUNDATION_EXPORT const unsigned char HMEventSourceManagerVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <HMEventSourceManager/PublicHeader.h>
-
-

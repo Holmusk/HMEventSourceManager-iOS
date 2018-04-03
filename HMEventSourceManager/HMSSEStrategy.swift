@@ -13,6 +13,6 @@
 ///                        no internet connection, and re-subscribes when
 ///                        connectivity is detected.
 public enum HMSSEStrategy {
-    case retryOnError
-    case retryOnConnectivity
+  case retryOnError
+  case retryOnConnectivity
 }

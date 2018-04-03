@@ -8,11 +8,11 @@
 
 /// SSE request type.
 public protocol HMSSERequestType {
-    func retryDelay() -> TimeInterval
-    
-    func urlString() throws -> String
-    
-    func additionalHeaders() -> [String : Any]
-    
-    func sseStreamStrategy() -> HMSSEStrategy
+  func retryDelay() -> TimeInterval
+
+  func urlString() throws -> String
+
+  func additionalHeaders() -> [String : Any]
+
+  func sseStreamStrategy() -> HMSSEStrategy
 }
