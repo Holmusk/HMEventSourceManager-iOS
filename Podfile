@@ -3,7 +3,6 @@
 
 def allPods
     pod 'SwiftUtilities/Main', :git => 'https://github.com/protoman92/SwiftUtilities.git', :branch => 'legacy'
-    pod 'ReachabilitySwift'
     pod 'RxReachability'
 end
 
@@ -25,7 +24,7 @@ target 'HMEventSourceManager' do
       inherit! :search_paths
       # Pods for testing
       allPods
-      pod 'SwiftUIUtilities/Main', :git => 'https://github.com/protoman92/SwiftUIUtilities.git'
+      pod 'SwiftUIUtilities/Main', :git => 'https://github.com/protoman92/SwiftUIUtilities.git', :branch => 'legacy'
   end
 
 end
