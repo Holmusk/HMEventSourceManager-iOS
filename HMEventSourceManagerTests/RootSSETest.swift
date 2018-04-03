@@ -6,7 +6,7 @@
 //  Copyright © 2017 Holmusk. All rights reserved.
 //
 
-import ReachabilitySwift
+import Reachability
 import RxSwift
 import RxTest
 import SwiftUtilities
@@ -20,6 +20,7 @@ public class RootSSETest: XCTestCase {
     public var scheduler: TestScheduler!
     public var disposeBag: DisposeBag!
     public var userDefaults: UserDefaults!
+    public var waitDuration: TimeInterval!
     public var timeout: TimeInterval!
     
     public let suiteName = "com.holmusk.HMEventSourceManager"
@@ -29,6 +30,7 @@ public class RootSSETest: XCTestCase {
         scheduler = TestScheduler(initialClock: 0)
         disposeBag = DisposeBag()
         userDefaults = UserDefaults(suiteName: suiteName)
+        waitDuration = 1.0
         timeout = 10
     }
     

@@ -6,10 +6,11 @@
 //  Copyright © 2017 Holmusk. All rights reserved.
 //
 
-import ReachabilitySwift
+import Reachability
 import RxReachability
 import RxSwift
 import RxTest
+import SwiftFP
 import SwiftUtilities
 import SwiftUtilitiesTests
 import XCTest

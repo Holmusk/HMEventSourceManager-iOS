@@ -7,6 +7,7 @@
 //
 
 import RxSwift
+import SwiftFP
 import SwiftUtilities
 @testable import HMEventSourceManager
 

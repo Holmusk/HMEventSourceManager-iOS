@@ -2,9 +2,9 @@
 # platform :ios, '9.0'
 
 def allPods
+    pod 'SwiftFP/Main', :git => 'https://github.com/protoman92/SwiftFP.git'
     pod 'SwiftUtilities/Main+Rx', :git => 'https://github.com/protoman92/SwiftUtilities.git'
-    pod 'ReachabilitySwift'
-    pod 'RxReachability'
+    pod 'RxReachability', :git => 'https://github.com/ivanbruel/RxReachability.git'
 end
 
 target 'HMEventSourceManager' do

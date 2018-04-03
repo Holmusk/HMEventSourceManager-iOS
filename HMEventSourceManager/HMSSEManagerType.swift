@@ -7,6 +7,7 @@
 //
 
 import RxSwift
+import SwiftFP
 import SwiftUtilities
 
 /// Classes that implement this protocol must be able to handle SSE events.
@@ -201,7 +202,7 @@ public extension HMSSEManagerType {
         var parsedEvents: [Event<Result>] = []
         
         for event in events {
-            guard event.isNotEmpty && !event.hasPrefix(":") else {
+            guard !event.isEmpty && !event.hasPrefix(":") else {
                 continue
             }
             

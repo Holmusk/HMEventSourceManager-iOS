@@ -6,7 +6,7 @@
 //  Copyright © 2017 Holmusk. All rights reserved.
 //
 
-import ReachabilitySwift
+import Reachability
 import RxReachability
 import RxSwift
 import RxTest
@@ -41,7 +41,7 @@ public final class SSERequestTest: RootSSETest {
             .subscribe()
             .disposed(by: disposeBag)
         
-        waitOnMainThread(0.5)
+        waitOnMainThread(waitDuration!)
         
         /// Then
         XCTAssertEqual(requestCreatedCount, 1)

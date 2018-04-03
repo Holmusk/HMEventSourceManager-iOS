@@ -6,10 +6,11 @@
 //  Copyright © 2017 Holmusk. All rights reserved.
 //
 
-import ReachabilitySwift
+import Reachability
 import RxReachability
 import RxSwift
 import RxTest
+import SwiftFP
 import SwiftUtilities
 import SwiftUtilitiesTests
 import XCTest
@@ -17,7 +18,8 @@ import XCTest
 
 public final class ReachabilityAwareTest: RootSSETest {
     public func test_terminateObsEmitsEvent_shoudTerminateSSE(
-        _ connectionTrigger: @escaping (AnyObserver<Bool>) -> Void) {
+        _ connectionTrigger: @escaping (AnyObserver<Bool>) -> Void)
+    {
         /// Setup
         let observer = scheduler.createObserver([Event<Result>].self)
         let expect = expectation(description: "Should have completed")

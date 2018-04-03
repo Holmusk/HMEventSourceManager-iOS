@@ -8,6 +8,7 @@
 
 import RxSwift
 import RxReachability
+import SwiftFP
 import SwiftUtilities
 
 extension HMSSEManager: HMSSEManagerType {
