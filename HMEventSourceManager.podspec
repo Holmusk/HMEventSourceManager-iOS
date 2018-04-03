@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.platform = :ios
-    s.ios.deployment_target = '9.0'
+    s.ios.deployment_target = '8.0'
     s.name = "HMEventSourceManager"
     s.summary = "Rx-enabled event source manager for iOS clients."
     s.requires_arc = true

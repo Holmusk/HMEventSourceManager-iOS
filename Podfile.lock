@@ -56,7 +56,7 @@ CHECKOUT OPTIONS:
     :commit: eb32feb8cfb44c2d69431ec4cae455daf73339a7
     :git: https://github.com/protoman92/SwiftFP.git
   SwiftUIUtilities:
-    :commit: c61523950d92ba1f16f2f68e7ab34ecfbbe540d6
+    :commit: 86058e53d5033e5dad4e73aaa1de3142f9bfdb55
     :git: https://github.com/protoman92/SwiftUIUtilities.git
   SwiftUtilities:
     :commit: 7a3e200e71ec3048177eced1e5eb1d201c9e2502
@@ -73,7 +73,7 @@ SPEC CHECKSUMS:
   RxSwift: e49536837d9901277638493ea537394d4b55f570
   RxTest: e634f15fd2c2cd0e0120132ef7a4f7be69ad0393
   SwiftFP: 25277c3c13de8b45771702a77443cd1d3c2761b2
-  SwiftUIUtilities: 4c540492fe56917d38beacf9a02b5d54c4dcba19
+  SwiftUIUtilities: 51fd079bfdf23bf4693e3364aa89f020afdbf47f
   SwiftUtilities: f7e2e01683284be61a2e5f2b2e5cfa9096cc6b5d
   SwiftUtilitiesTests: 51ad0d8703fbfa924ade7609453a2b4783f23f29
 
